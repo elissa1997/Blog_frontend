@@ -1,4 +1,7 @@
 module.exports = {
+  devServer: {
+    port: 9010
+  },
   css: {
     loaderOptions: {
       // 给 sass-loader 传递选项

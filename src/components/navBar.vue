@@ -39,7 +39,7 @@ export default {
       current: ['home'],
       screenWidth: undefined,
       mobile: {
-        navDisplay: true,
+        navDisplay: false,
       }
     }
   },
