@@ -8,7 +8,11 @@ import {install} from '@icon-park/vue/es/all';
 import dayjs from "dayjs";
 import { message } from 'ant-design-vue';
 
-Vue.config.productionTip = false
+
+
+Vue.config.productionTip = false;
+
+
 Vue.prototype.$screenWidth = undefined;
 Vue.prototype.$dayjs = dayjs;
 Vue.prototype.$message = message;

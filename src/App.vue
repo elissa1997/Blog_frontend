@@ -1,22 +1,25 @@
 <template>
   <div id="app">
-    <navBar/>
+    <NavBar/>
     <a-config-provider :locale="locale">
       <router-view/>
     </a-config-provider>
+    <InfoFooter/>
   </div>
 </template>
 
 <script>
 import { ConfigProvider } from 'ant-design-vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN.js';
-import navBar from "@/components/navBar.vue";
+import NavBar from "@/views/NavBar.vue";
+import InfoFooter from "@/views/InfoFooter.vue";
 
 export default {
   name: "App",
   components: {
     [ConfigProvider.name]: ConfigProvider,
-    navBar
+    NavBar,
+    InfoFooter
   },
   data() {
     return {
