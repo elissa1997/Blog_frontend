@@ -4,6 +4,12 @@ export function random(n, m) {
 }
 
 // 解析markdown语法
+/**
+ * 
+ * @param {String} 正文markdown 
+ * @param {Number} 最多显示字数
+ * @returns 
+ */
 export function parseMarkdown(str, num) {
   if (!str) {
     return '';
@@ -25,4 +31,71 @@ export function parseMarkdown(str, num) {
       .replace(/\s/g, "")                                          //全局匹配空字符;
     return res.slice(0, num);
   }
+}
+
+// 列表转树
+/**
+ * 
+ * @param {Array}   原始数组 
+ * @param {String}  id名称
+ * @param {String}  父id名称 
+ * @returns 
+ */
+export function listToTree(oldArr, idName, pidName) {
+  let result = []
+  let map = {}
+  if (!Array.isArray(oldArr)) {//验证data是不是数组类型
+      return []
+  }
+  oldArr.forEach(item => {//建立每个数组元素id和该对象的关系
+      map[item[idName]] = item //这里可以理解为浅拷贝，共享引用
+  })
+  oldArr.forEach(item => {
+      let parent = map[item[pidName]] //找到data中每一项item的爸爸
+      if (parent) {//说明元素有爸爸，把元素放在爸爸的children下面
+          (parent.children || (parent.children = [])).push(item)
+      } else {//说明元素没有爸爸，是根节点，把节点push到最终结果中
+          result.push(item) //item是对象的引用
+      }
+  })
+  return result //数组里的对象和data是共享的
+}
+
+// 楼中楼评论
+/**
+ * 
+ * @param {Array} 评论数组 
+ */
+export function nestComment(list) {
+  let root = [];
+  let NotRoot = [];
+  list.forEach(item => {
+    if (item.parentId === 0) {
+      // 一级评论
+      item.reply = [];
+      root.push(item);
+    }else{
+      // 非一级评论
+      NotRoot.push(item);
+    }
+  });
+
+  NotRoot.forEach(item => {
+    root.forEach(rootItem => {
+      if (item.parentId === rootItem.id) {
+        item.parentName = rootItem.userName;
+        rootItem.reply.push(item);
+      }
+      if (rootItem.reply && rootItem.reply.length !== 0) {
+        rootItem.reply.forEach(replyItem => {
+          if(item.parentId === replyItem.id){
+            item.parentName = replyItem.userName;
+            rootItem.reply.push(item);
+          }
+        })
+      }
+    });
+  });
+  
+  return root;
 }
