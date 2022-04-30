@@ -11,7 +11,7 @@
         </div>
       </div> -->
 
-      <div class="card"  v-for="item in articleList" :key="item.id">
+      <div class="card"  v-for="item in articleList" :key="item.id" @click="toArticleDetail(item)">
         <div class="cover">
           <img v-if="!item.cover" :src="require('@/assets/img/defaultCover/coverbg'+random(1,3)+'.jpg')">
           <img v-else :src="item.cover">
@@ -30,6 +30,10 @@
             <span class="metaItem category">
               <icon-application-two theme="outline" size="18" :strokeWidth="3"/>
               {{item.category}}
+            </span>
+            <span class="metaItem comment">
+              <icon-comment theme="outline" size="18" :strokeWidth="3"/>
+              {{item.commentsNum}}
             </span>
           </div>
           <div class="summary">
@@ -72,7 +76,7 @@ export default {
   data() {
     return {
       page: {
-        offset: 1,
+        offset: Number(this.$route.query.page) || 1,
         limits: 5,
         total: 0,
         limitsOptions: ['5', '10', '15', '20'],
@@ -83,6 +87,8 @@ export default {
   methods: {
     random,
     parseMarkdown,
+
+    // 获取文章列表
     getArticleList() {
       list(this.articleList_params).then(res => {
         if (res.status === 200) {
@@ -91,16 +97,29 @@ export default {
         }
       })
     },
+
+    // 页码改变
     offsetChange(page, pageSize) {
       this.page.offset = page;
       this.page.limits = pageSize;
       this.getArticleList();
     },
 
+    // 页面条数改变
     limitsChange(page, pageSize) {
       this.page.offset = 1;
       this.page.limits = pageSize;
       this.getArticleList();
+    },
+
+    // 查看文章详情
+    toArticleDetail(item) {
+      this.$router.push({
+        path: '/article',
+        query: {
+          id: item.id
+        }
+      })
     }
   },
   mounted() {
@@ -126,6 +145,7 @@ export default {
   min-height: 50vh;
   margin: 0px auto;
   .card {
+    cursor: pointer;
     width: 100%;
     border-radius: 5px;
     background-color: #fff;
@@ -144,19 +164,21 @@ export default {
         .author{
           color: #fa8c16;
           background-color: #fff7e6;
-          // border-color: #ffd591;
         }
 
         .time{
           color: #13c2c2;
           background: #e6fffb;
-          // border-color: #87e8de;
         }
 
         .category {
+          color: #1890ff;
+          background: #e6f7ff;
+        }
+
+        .comment {
           color: #722ed1;
           background: #f9f0ff;
-          // border-color: #d3adf7;
         }
 
         .metaItem{
@@ -187,8 +209,14 @@ export default {
   .paginationWarp{
     margin: 20px 0px;
     text-align: center;
+
+    ::v-deep .ant-select-selection,::v-deep .ant-pagination-item-link, ::v-deep .ant-pagination-item {
+      border: 0px!important;
+    }
   }
 }
+
+
 
 .mobile {
   width: calc(100vw - 20px);
@@ -249,6 +277,8 @@ export default {
 
       .summary {
         line-height: 35px;
+        max-height: calc(250px - 30px - 21px - 51px);
+        overflow: hidden;
       }
     }
   }

@@ -7,3 +7,11 @@ export function list(params) {
     params
   })
 }
+
+export function detail(params) {
+  return instance_api({
+    url: '/article/detail',
+    method: 'get',
+    params
+  })
+}
