@@ -38,11 +38,11 @@
         </div>
 
         <div class="commentsWarp">
-          <commentsList ref="commentsList" :comments="comments" @reply="reply"/>
+          <commentsList ref="commentsList" :comments="comments"/>
         </div>
 
         <div class="replyCommentWarp">
-          <replyComment :parentObj.sync="commentParent" @addCommentSuccess="getArrticleComment"/>
+          <replyComment/>
         </div>
 
 
@@ -78,7 +78,6 @@ export default {
       loading: true,
       articleDetail: undefined,
       comments: undefined,
-      commentParent: undefined,
     }
   },
   methods: {
@@ -132,14 +131,15 @@ export default {
       // }
       
     },
-
-    reply(obj) {
-      this.commentParent = obj;
-    }
   },
   mounted() {
     this.getArticleDetail();
     this.getArrticleComment();
+
+    // 添加回复成功(事件总线)
+    this.$EventBus.$on("commentAddSucess", () => {
+      this.getArrticleComment;
+    })
   },
   computed: {
     articleDetail_params: function() {

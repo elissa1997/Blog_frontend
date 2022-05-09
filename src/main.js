@@ -12,7 +12,7 @@ import { message } from 'ant-design-vue';
 
 Vue.config.productionTip = false;
 
-
+Vue.prototype.$EventBus = new Vue();
 Vue.prototype.$screenWidth = undefined;
 Vue.prototype.$dayjs = dayjs;
 Vue.prototype.$message = message;

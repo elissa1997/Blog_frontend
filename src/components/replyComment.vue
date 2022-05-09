@@ -33,10 +33,10 @@ import { add } from "@/network/comment.js";
 export default {
   name: "replyComment",
   props: {
-    parentObj: {
-      type: Object,
-      default: undefined
-    }
+    // parentObj: {
+    //   type: Object,
+    //   default: undefined
+    // }
   },
   components: {
     [Input.name]: Input,
@@ -53,13 +53,16 @@ export default {
         url: undefined,
         agent: navigator.userAgent,
         text: undefined,
-      }
+      },
+      parentObj: undefined
+
     }
   },
   methods: {
+
     // 取消回复
     cancelReply() {
-      this.$emit('update:parentObj', undefined);
+      this.parentObj = undefined;
     },
 
     // 增加评论
@@ -68,15 +71,23 @@ export default {
         if (res.status === 200) {
           this.$message.success('评论成功');
           this.comment.text = undefined;
-          this.$emit('update:parentObj', undefined);
-          this.$emit('addCommentSuccess');
+          this.parentObj = undefined
+          this.$EventBus.$emit("commentAddSucess");
         } else {
           this.$message.error(res.msg);
         }
       });
     }
   },
-  mounted() {},
+  mounted() {
+    // 接收回复数据(事件总线)
+    this.$EventBus.$on("commentReply", (data) => {
+      this.parentObj = data;
+    })
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("commentAddSucess");
+  },
   watch: {}
 }
 </script>

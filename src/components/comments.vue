@@ -50,16 +50,23 @@ export default {
   },
   methods: {
     avatarByemail(email) {
-      let hash = md5(email.replace(/^\s*|\s*$/g,"").toLowerCase());
-      return `https://cravatar.cn/avatar/${hash}?s=60`
+      if (email) {
+        let hash = md5(email.replace(/^\s*|\s*$/g,"").toLowerCase());
+        return `https://cravatar.cn/avatar/${hash}?s=60`
+      }else{
+        return `https://cravatar.cn/avatar/404`
+      }
     },
     reply(item) {
       console.log(item);
-      this.$emit('reply', item);
+      this.$EventBus.$emit("commentReply", item);
     }
   },
   mounted() {},
   computed: {
+  },
+  beforeDestroy() {
+    this.$EventBus.$off("commentReply");
   },
   watch: {}
 }

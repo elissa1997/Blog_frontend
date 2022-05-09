@@ -19,10 +19,10 @@
         <div class="text">
           <div class="title">{{item.title}}</div>
           <div class="meta">
-            <span class="metaItem author">
+            <!-- <span class="metaItem author">
               <icon-user theme="outline" size="18" :strokeWidth="3"/>
               {{item.author}}
-            </span>
+            </span> -->
             <span class="metaItem time">
               <icon-calendar theme="outline" size="18" :strokeWidth="3"/>
               {{$dayjs(item.createdAt).format('YYYY-MM-DD HH:mm')}}
