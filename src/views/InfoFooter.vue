@@ -15,20 +15,20 @@
           <span>Powered by</span>
         </div>
         <div class="content">
-          <div class="brand">
+          <!-- <div class="brand">
             <div class="icon"><img :src="require('@/assets/img/brandIcon/Vue.png')" alt=""></div>
             <div class="name">Vue.js</div>
-          </div>
+          </div> -->
 
           <div class="brand">
             <div class="icon"><img :src="require('@/assets/img/brandIcon/AntDesign.png')" alt=""></div>
             <div class="name">Ant Design</div>
           </div>
 
-          <div class="brand">
+          <!-- <div class="brand">
             <div class="icon"><img :src="require('@/assets/img/brandIcon/IconPark.png')" alt=""></div>
             <div class="name">IconPark</div>
-          </div>
+          </div> -->
 
           <div class="brand">
             <div class="icon"><img :src="require('@/assets/img/brandIcon/HUAWEI.png')" alt=""></div>

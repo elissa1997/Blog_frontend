@@ -14,7 +14,7 @@
           <a-menu-item key="friend"> 友链 </a-menu-item>
           <a-menu-item key="about" > 关于 </a-menu-item>
           <a-menu-item key="toolbox" > 工具箱 </a-menu-item>
-          <a-menu-item key="login" > 登录 </a-menu-item>
+          <a-menu-item key="login" ><router-link to="/login"> 登录 </router-link></a-menu-item>
         </a-menu>
       </div>
 

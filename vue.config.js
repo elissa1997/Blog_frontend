@@ -1,6 +1,16 @@
 module.exports = {
   devServer: {
-    port: 9010
+    port: 9010,
+    proxy: {
+      '/bingProxy': {
+        target:  'https://cn.bing.com/' ,
+        changeOrigin: true,
+        logLevel: 'debug',
+        pathRewrite: {
+        '^/bingProxy': ''
+        }
+      }
+    }
   },
   css: {
     loaderOptions: {
