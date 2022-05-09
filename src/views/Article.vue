@@ -273,7 +273,7 @@ export default {
     }
 
     .content{
-      padding: 10px;
+      padding: 10px 20px;
     }
     
     .commentsWarp {
