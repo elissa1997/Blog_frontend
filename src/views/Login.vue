@@ -7,20 +7,46 @@
           <div class="author" v-if="hitokoto.from_who">—— {{hitokoto.from_who}}</div>
         </div>
       </div>
-      <div class="login">登录</div>
+      <div class="login">
+        <div class="formWarp">
+          <div class="title">
+            <div class="text">后台登录</div>
+            <div class="subText">Welcome back.</div>
+          </div>
+          <div class="inputWarp">
+            <a-input v-model="username" placeholder="请输入账号" />
+          </div>
+          <div class="inputWarp">
+            <a-input-password v-model="password" placeholder="请输入密码" />
+          </div>
+          <div class="btnWarp">
+            <a-button type="primary" style="width: 40%;" @click="handleLogin">登录</a-button>
+            <a-button style="width: 40%;">重置</a-button>
+          </div>
+        </div>
+      </div>
     </div> 
   </div>
 </template>
 
 <script>
+import { Input, Button } from 'ant-design-vue'
 import { bingPic, hitokoto } from "@/network/thirdParty.js";
+import { login } from "@/network/user.js";
+import { loginSuccess } from "@/util/auth.js";
 export default {
   name: "Login",
   props: {},
-  components: {},
+  components: {
+    [Input.name]: Input,
+    [Input.Password.name]: Input.Password,
+    [Button.name]: Button,
+  },
   data() {
     return {
-      hitokoto: undefined
+      hitokoto: undefined,
+      username: undefined,
+      password: undefined
     };
   },
   methods: {
@@ -33,6 +59,17 @@ export default {
     getHitokoto() {
       hitokoto(this.hitokoto_params).then((res) => {
         this.hitokoto = res;
+      });
+    },
+
+    // 点击登录按钮
+    handleLogin() {
+      login(this.login_data).then((res) => {
+        if (res.status == 200) {
+          loginSuccess(res.token);
+        }else{
+          this.$message.error(res.msg);
+        }
       });
     }
   },
@@ -51,13 +88,14 @@ export default {
 
     hitokoto_params: function () {
       return {
-        c: "c",
-        c: "d",
-        c: "e",
-        c: "f",
-        c: "h",
-        c: "k",
         encode: "json",
+      }
+    },
+
+    login_data: function () {
+      return {
+        name: this.username,
+        password: this.password,
       }
     }
   },
@@ -79,7 +117,45 @@ export default {
     min-height: 50vh;
 
     .login{
-      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .formWarp{
+        .title{
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          margin-bottom: 30px;
+  
+          .text{
+            font-size: 25px;
+            font-weight: 100;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: -webkit-linear-gradient(180deg,#379eff,#00ceab);
+
+          }
+
+          .subText{
+            font-size: 14px;
+            font-weight: 100;
+          }
+        }
+
+        .inputWarp{
+          margin-bottom: 30px;
+        }
+
+        .btnWarp{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+        }
+        
+      }
     }
 
   }
@@ -97,7 +173,12 @@ export default {
     }
 
     .login{
+      height: 50vh;
       width: 100%;
+
+      .formWarp{
+        width: 80%;
+      }
     }
 
   }
@@ -145,8 +226,12 @@ export default {
     }
 
     .login{
-      // height: 100%;
+      height: 50vh;
       width: 50%;
+
+      .formWarp{
+        width: 65%;
+      }
     }
 
   }

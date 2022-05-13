@@ -2,7 +2,7 @@
   <div id="NavBar">
     <div class="warp" :class="{ mobile:  $store.state.style.screenWidth < 1100 , desktop: $store.state.style.screenWidth >= 1100}">
       <div class="logo">
-        <img :src="require('../assets/logo.png')">
+        <img :src="require('@/assets/icon/logo_text.svg')">
         <icon-application-menu v-if="$store.state.style.screenWidth < 1100" theme="filled" size="18" @click="mobile.navDisplay = !mobile.navDisplay"/>
       </div>
 
