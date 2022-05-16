@@ -24,7 +24,15 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     meta: { auth: true },
-    component: () => import('@/views/Admin/index.vue')
+    component: () => import('@/views/Admin/index.vue'),
+    children: [
+      {
+        path: 'articlelist',
+        name: 'Admin-Article-list',
+        meta: { auth: true },
+        component: () => import('@/views/Admin/ArticleManage/list.vue'),
+      }
+    ]
   }
 ]
 

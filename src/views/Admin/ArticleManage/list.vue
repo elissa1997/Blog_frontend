@@ -1,18 +1,14 @@
 <template>
-  <div id="Admin">
-    <vNavBar/>
-    <router-view/>
+  <div id="ArticleManageList">
+    文章列表
   </div>
 </template>
 
 <script>
-import vNavBar from "@/views/Admin/vNavBar.vue";
 export default {
-  name: "Admin",
+  name: "ArticleManageList",
   props: {},
-  components: {
-    vNavBar
-  },
+  components: {},
   data() {
     return {}
   },
@@ -22,7 +18,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-#Admin{
-  display: flex;
-}
+#ArticleManageList{}
 </style>

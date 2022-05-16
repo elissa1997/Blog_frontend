@@ -50,7 +50,10 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$route);
+    setTimeout(() => {
+      console.log(this.$route);
+      
+    }, 200);
   },
   watch: {}
 }
