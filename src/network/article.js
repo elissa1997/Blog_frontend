@@ -2,7 +2,7 @@ import { instance_api } from '@/network/axios.js'
 
 export function list(params) {
   return instance_api({
-    url: '/article/list',
+    url: process.env.VUE_APP_API+'/article/list',
     method: 'get',
     params
   })
@@ -10,7 +10,7 @@ export function list(params) {
 
 export function detail(params) {
   return instance_api({
-    url: '/article/detail',
+    url: process.env.VUE_APP_API+'/article/detail',
     method: 'get',
     params
   })

@@ -1,10 +1,8 @@
 import axios from "axios";
 
 export function instance_api(config) {
-  let url = 'http://127.0.0.1:7001/';
 
   const instance = axios.create({
-      baseURL: url,
       timeout: 8000,
       headers: { 'Content-Type':'application/json'}
   })
