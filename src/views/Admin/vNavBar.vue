@@ -4,15 +4,16 @@
       class="vMenu"
       mode="inline"
       :default-selected-keys="['1']"
-      :inline-collapsed="collapsed"
     >
       <a-menu-item key="1">
         <span class="anticon"><icon-setting-two theme="outline" size="16" :strokeWidth="3"/></span>
         <span>系统设置</span>
       </a-menu-item>
-      <a-menu-item key="2"> 
-        <span class="anticon"><icon-view-list theme="outline" size="16" :strokeWidth="3"/></span>
-        <span>文章管理</span>
+      <a-menu-item key="2">
+        <router-link to="/admin/articlelist">
+          <span class="anticon"><icon-view-list theme="outline" size="16" :strokeWidth="3"/></span>
+          <span>文章管理</span>
+        </router-link>
       </a-menu-item>
       <a-menu-item key="3"> 
         <span class="anticon"><icon-comment theme="outline" size="16" :strokeWidth="3"/></span>
@@ -35,7 +36,6 @@ export default {
   },
   data() {
     return {
-      collapsed: false,
     };
   },
   methods: {},
@@ -47,7 +47,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 #vNavBar {
-  width: 200px;
+  width: $vNavBar-width;
 }
 
 .vMenu {

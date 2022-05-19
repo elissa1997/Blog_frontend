@@ -1,7 +1,9 @@
 <template>
   <div id="Admin">
     <vNavBar/>
-    <router-view/>
+    <div class="main">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -24,5 +26,10 @@ export default {
 <style lang="scss" scoped>
 #Admin{
   display: flex;
+}
+
+.main {
+  background-color: $backGround-color;
+  width: calc(100% - $vNavBar-width);
 }
 </style>

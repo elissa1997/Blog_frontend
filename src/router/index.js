@@ -8,16 +8,19 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: { auth: false, footer: true },
     component: () => import('@/views/Home.vue')
   },
   {
     path: '/article',
     name: 'Article',
+    meta: { auth: false, footer: true },
     component: () => import('@/views/Article.vue')
   },
   {
     path: '/login',
     name: 'Login',
+    meta: { auth: false, footer: true },
     component: () => import('@/views/Login.vue')
   },
   {
@@ -29,7 +32,7 @@ const routes = [
       {
         path: 'articlelist',
         name: 'Admin-Article-list',
-        meta: { auth: true },
+        meta: { auth: true, footer: false },
         component: () => import('@/views/Admin/ArticleManage/list.vue'),
       }
     ]

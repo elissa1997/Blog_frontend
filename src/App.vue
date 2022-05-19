@@ -4,7 +4,7 @@
     <a-config-provider :locale="locale">
       <router-view/>
     </a-config-provider>
-    <InfoFooter/>
+    <InfoFooter v-if="$route.meta.footer"/>
   </div>
 </template>
 
