@@ -4,23 +4,29 @@
     <div class="searchWarp">
       <a-form layout="inline">
         <a-form-item>
-          <a-input v-model="search.user" placeholder="Username">
+          <a-input v-model="search.title" placeholder="文章标题">
           </a-input>
         </a-form-item>
-        <a-form-item>
-          <a-input v-model="search.password" type="password" placeholder="Password">
-          </a-input>
+        <a-form-item v-if="dict">
+          <a-select style="width: 200px" placeholder="文章分类" v-model="search.category">
+            <a-select-option :value="option.key" v-for="option in dict.category" :key="option.key">{{option.value}}</a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item v-if="dict">
+          <a-select style="width: 200px" placeholder="文章状态" v-model="search.status">
+            <a-select-option :value="option.key" v-for="option in dict.status" :key="option.key">{{option.value}}</a-select-option>
+          </a-select>
         </a-form-item>
         <a-form-item>
-          <a-button type="primary"> 搜索 </a-button>
-          <a-button > 重置 </a-button>
+          <a-button type="primary" @click="searchApply"><icon-search theme="outline" :strokeWidth="3"/> 搜索 </a-button>
+          <a-button @click="searchRest"><icon-clear theme="outline" :strokeWidth="3"/> 重置 </a-button>
         </a-form-item>
       </a-form>
     </div>
 
     <div class="opeartWarp">
-      <a-button type="primary"> 撰写新文章 </a-button>
-      <a-button type="primary"> 删除 </a-button>
+      <a-button type="primary"><icon-write theme="outline" :strokeWidth="3"/> 撰写新文章 </a-button>
+      <a-button type="danger"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
     </div>
 
     <div class="tableWarp">
@@ -33,6 +39,9 @@
         :scroll="{y:'calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px))'}"
       >
         <span slot="created_at" slot-scope="created_at">{{$dayjs(created_at).format('YYYY-MM-DD HH:mm:ss')}}</span>
+        <span v-if="dict" slot="category" slot-scope="category">{{translate(dict, 'category', category).value}}</span>
+        <span v-if="dict" slot="status" slot-scope="status">{{translate(dict, 'status', status).value}}</span>
+
       </a-table>
     </div>
 
@@ -52,9 +61,10 @@
 </template>
 
 <script>
-import { Button, Table, Pagination, Form, Input } from 'ant-design-vue';
+import { Button, Table, Pagination, Form, Input, Select } from 'ant-design-vue';
 import { list } from "@/network/article.js";
 import { dict } from "@/network/static.js";
+import { translate, resetObj, filterObj } from "@/util/tool.js";
 export default {
   name: "ArticleManageList",
   props: {},
@@ -64,7 +74,9 @@ export default {
     [Button.name]: Button,
     [Form.name]: Form,
     [Form.Item.name]: Form.Item,
-    [Input.name]: Input
+    [Input.name]: Input,
+    [Select.name]: Select,
+    [Select.Option.name]: Select.Option
   },
   data() {
     return {
@@ -77,23 +89,25 @@ export default {
       articleList: {
         selectedRowKeys: [],
         columns: [
-          { title: 'ID', dataIndex: 'id'},
+          { title: 'ID', dataIndex: 'id', width: 80},
           { title: '标题', dataIndex: 'title'},
-          { title: '创建时间', dataIndex: 'created_at', scopedSlots: { customRender: 'created_at' },},
-          { title: '分类', dataIndex: 'category'},
-          { title: '评论数量', dataIndex: 'commentsNum'},
-          { title: '状态', dataIndex: 'status'},
+          { title: '创建时间', dataIndex: 'created_at', scopedSlots: { customRender: 'created_at' }, width: 160},
+          { title: '分类', dataIndex: 'category', scopedSlots: { customRender: 'category' }, width: 100, align: 'center'},
+          { title: '评论', dataIndex: 'commentsNum', width: 80, align: 'center'},
+          { title: '状态', dataIndex: 'status', scopedSlots: { customRender: 'status' }, width: 100, align: 'center'},
         ],
         data: undefined
       },
       search: {
-        user: undefined,
-        password: undefined
+        title: undefined,
+        category: undefined,
+        status: undefined
       },
       dict: undefined
     }
   },
   methods: {
+    translate,
     // 获取文章列表
     getArticleList() {
       list(this.articleList_params).then(res => {
@@ -130,13 +144,29 @@ export default {
       this.page.limits = pageSize;
       this.getArticleList();
     },
+
+    searchApply() {
+      this.page.offset = 1;
+      this.page.limits = 10;
+      this.getArticleList();
+    },
+
+    // 搜索重置
+    searchRest() {
+      resetObj(this.search);
+      this.page.offset = 1;
+      this.page.limits = 10;
+      this.getArticleList();
+    }
   },
   mounted() {
+    this.getDict();
     this.getArticleList();
   },
   computed: {
     articleList_params: function() {
       return {
+        search: filterObj(this.search),
         offset: this.page.offset,
         limits: this.page.limits,
       }
@@ -151,6 +181,10 @@ export default {
   padding: 10px;
   background-color: #fff;
   border-radius: 5px;
+
+  ::v-deep .ant-btn .i-icon {
+    margin-right: 5px;
+  }
 }
 
 .searchWarp{

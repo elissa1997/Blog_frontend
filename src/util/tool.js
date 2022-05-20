@@ -99,3 +99,40 @@ export function nestComment(list) {
   
   return root;
 }
+
+// 字典翻译
+/**
+ * 
+ * @param {Object} 字典对象 
+ * @param {String} 分类对象名
+ * @param {String} key值
+ * 
+ */
+export function translate(dict, obj, key) {
+  return dict[obj].find(item => item.key === key)
+}
+
+// 重置对象
+export function resetObj(obj) {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      obj[key] = undefined
+    }
+  }
+}
+
+// 过滤对象中空属性
+export function filterObj(obj) {
+  let newObj = {};
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key) && obj[key] !== undefined) {
+      newObj[key] = obj[key]
+    }
+  }
+  console.log(newObj, JSON.stringify(newObj) === '{}')
+  if(JSON.stringify(newObj) === '{}'){
+    return undefined;
+  }else{
+    return newObj;
+  }
+}
