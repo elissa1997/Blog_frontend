@@ -31,11 +31,12 @@
         </div>
 
         <div id="markdown" class="content">
-          <!-- {{articleDetail.content}} -->
-          <!-- <vue-markdown @rendered="renderFinsh">{{articleDetail.content}}</vue-markdown> -->
-            <div id="tex" v-html="compiledMarkdown"></div>
-
+          <!-- {{articleDetail.content}}
+          <vue-markdown @rendered="renderFinsh">{{articleDetail.content}}</vue-markdown> -->
+          <div id="tex" v-html="compiledMarkdown"></div>
         </div>
+
+        <!-- <markdown-it-vue class="content" :content="articleDetail.content" /> -->
 
         <div class="commentsWarp">
           <commentsList ref="commentsList" :comments="comments"/>
@@ -56,9 +57,13 @@
 <script>
 import { marked } from "marked";
 import Prism from "prismjs";
-import katex from 'katex';
-import 'katex/dist/katex.css';
-import renderMathInElement from 'katex/contrib/auto-render/auto-render';
+
+// import 'katex/dist/katex.css';
+// import renderMathInElement from 'katex/contrib/auto-render/auto-render';
+
+// import MarkdownItVue from 'markdown-it-vue'
+// import 'markdown-it-vue/dist/markdown-it-vue.css'
+
 import commentsList from '@/components/comments.vue';
 import replyComment from '@/components/replyComment.vue';
 import { listToTree, nestComment } from '@/util/tool.js';
@@ -70,6 +75,7 @@ export default {
   name: "Article",
   props: {},
   components: {
+    // MarkdownItVue,
     commentsList,
     replyComment
   },
@@ -81,7 +87,7 @@ export default {
     }
   },
   methods: {
-    renderMathInElement,
+    // renderMathInElement,
     getArticleDetail() {
 
 
@@ -94,9 +100,9 @@ export default {
         this.$nextTick(() => {
           Prism.highlightAll();
         });
-        setTimeout(() => {
-          this.renderTex();
-        }, 300);
+        // setTimeout(() => {
+        //   this.renderTex();
+        // }, 300);
       })
     },
 
@@ -124,11 +130,6 @@ export default {
       const el = document.getElementById('tex');
       this.renderMathInElement(el, renderOption);
 
-      // const el = document.getElementsByClassName('test');
-      // for (let i of el) {
-      //   this.renderMathInElement(i, renderOption);
-
-      // }
       
     },
   },
