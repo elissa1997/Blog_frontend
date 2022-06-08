@@ -100,6 +100,7 @@ export default {
     }
   },
   mounted() {
+    this.getBingPic();
     this.getHitokoto();
   },
   watch: {},
