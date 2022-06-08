@@ -36,7 +36,7 @@
         :pagination="false"
         :columns="articleList.columns"
         :data-source="articleList.data"
-        :scroll="{y:'calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px))'}"
+        :scroll="{y:'auto'}"
       >
         <span slot="created_at" slot-scope="created_at">{{$dayjs(created_at).format('YYYY-MM-DD HH:mm:ss')}}</span>
         <span v-if="dict" slot="category" slot-scope="category">{{translate(dict, 'category', category).value}}</span>
@@ -202,10 +202,10 @@ export default {
 
 .tableWarp {
   margin-top: 10px;
-  // ::v-deep .ant-table-tbody{
-  //   max-height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px));
-  //   overflow-y: auto;
-  // }
+  ::v-deep .ant-table-body{
+    height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px)) !important;
+    overflow-y: auto;
+  }
 }
 
 .paginationWarp {
