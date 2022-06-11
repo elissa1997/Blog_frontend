@@ -1,10 +1,9 @@
 <template>
   <div id="Login" :class="{ mobile:  $store.state.style.screenWidth < 1100 , desktop: $store.state.style.screenWidth >= 1100}">
     <div class="card">
-      <div class="pic">
-        <div class="oneWord" v-if="hitokoto">
-          <div class="hitokoto">“ {{hitokoto.hitokoto}} ”</div>
-          <div class="author" v-if="hitokoto.from_who">—— {{hitokoto.from_who}}</div>
+      <div class="pic" :style="`background-image: url(${bingPic_url})`" v-if="bingPic">
+        <div class="oneWord">
+          <div class="copyright">{{bingPic.copyright}}</div>
         </div>
       </div>
       <div class="login">
@@ -31,7 +30,7 @@
 
 <script>
 import { Input, Button } from 'ant-design-vue'
-import { bingPic, hitokoto } from "@/network/thirdParty.js";
+import { bingPic } from "@/network/thirdParty.js";
 import { login } from "@/network/user.js";
 import { loginSuccess } from "@/util/auth.js";
 export default {
@@ -44,7 +43,7 @@ export default {
   },
   data() {
     return {
-      hitokoto: undefined,
+      bingPic: undefined,
       username: undefined,
       password: undefined
     };
@@ -52,13 +51,7 @@ export default {
   methods: {
     getBingPic() {
       bingPic(this.bingPic_params).then((res) => {
-        console.log(res);
-      });
-    },
-
-    getHitokoto() {
-      hitokoto(this.hitokoto_params).then((res) => {
-        this.hitokoto = res;
+        this.bingPic = res.images[0];
       });
     },
 
@@ -85,12 +78,10 @@ export default {
         uhd: "0"
       };
     },
-
-    hitokoto_params: function () {
-      return {
-        encode: "json",
-      }
+    bingPic_url: function () {
+      return process.env.VUE_APP_PROXY_BING + this.bingPic.url;
     },
+
 
     login_data: function () {
       return {
@@ -101,7 +92,6 @@ export default {
   },
   mounted() {
     this.getBingPic();
-    this.getHitokoto();
   },
   watch: {},
 };
@@ -197,7 +187,6 @@ export default {
     .pic{
       // height: 100%;
       width: 50%;
-      background-image: url(https://api.oneneko.com/v1/bing_today);
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;

@@ -4,7 +4,7 @@ import { instance_api } from '@/network/axios.js'
 // 必应每日一图接口
 export function bingPic(params) {
   return instance_api({
-    url: 'https://proxy.makedream.site/bing/HPImageArchive.aspx',
+    url: process.env.VUE_APP_PROXY_BING + '/HPImageArchive.aspx',
     method: 'get',
     params
   })
