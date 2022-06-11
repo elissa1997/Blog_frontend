@@ -26,7 +26,7 @@
 
     <div class="opeartWarp">
       <a-button type="primary"><icon-write theme="outline" :strokeWidth="3"/> 撰写新文章 </a-button>
-      <a-button type="danger"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
+      <a-button type="danger" :disabled="articleList.selectedRowKeys.length === 0"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
     </div>
 
     <div class="tableWarp">
@@ -41,7 +41,11 @@
         <span slot="created_at" slot-scope="created_at">{{$dayjs(created_at).format('YYYY-MM-DD HH:mm:ss')}}</span>
         <span v-if="dict" slot="category" slot-scope="category">{{translate(dict, 'category', category).value}}</span>
         <span v-if="dict" slot="status" slot-scope="status">{{translate(dict, 'status', status).value}}</span>
-
+        <span slot="action" slot-scope="text, record">
+          <a-button type="link" @click="edit(record)"><icon-writing-fluently theme="outline" :strokeWidth="3"/> 编辑 </a-button>
+          <a-divider type="vertical" />
+          <a-button type="link"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
+        </span>
       </a-table>
     </div>
 
@@ -61,7 +65,7 @@
 </template>
 
 <script>
-import { Button, Table, Pagination, Form, Input, Select } from 'ant-design-vue';
+import { Button, Table, Pagination, Form, Input, Select, Divider } from 'ant-design-vue';
 import { list } from "@/network/article.js";
 import { dict } from "@/network/static.js";
 import { translate, resetObj, filterObj } from "@/util/tool.js";
@@ -76,7 +80,8 @@ export default {
     [Form.Item.name]: Form.Item,
     [Input.name]: Input,
     [Select.name]: Select,
-    [Select.Option.name]: Select.Option
+    [Select.Option.name]: Select.Option,
+    [Divider.name]: Divider
   },
   data() {
     return {
@@ -95,6 +100,7 @@ export default {
           { title: '分类', dataIndex: 'category', scopedSlots: { customRender: 'category' }, width: 100, align: 'center'},
           { title: '评论', dataIndex: 'commentsNum', width: 80, align: 'center'},
           { title: '状态', dataIndex: 'status', scopedSlots: { customRender: 'status' }, width: 100, align: 'center'},
+          { title: '操作', scopedSlots: { customRender: 'action' }, width: 220, align: 'center'},
         ],
         data: undefined
       },
@@ -157,6 +163,17 @@ export default {
       this.page.offset = 1;
       this.page.limits = 10;
       this.getArticleList();
+    },
+
+    // 点击编辑
+    edit(record) {
+      this.$router.push({
+        path: "/admin/articleedit",
+        query: {
+          id: record.id,
+          type: "edit"
+        }
+      })
     }
   },
   mounted() {
