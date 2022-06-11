@@ -8,13 +8,13 @@
 
 
       <div class="navWarp" :class="{openNav: mobile.navDisplay}">
-        <a-menu v-model="current" :selectedKeys="[this.$route.path]" :mode="($store.state.style.screenWidth < 1100)?'inline':'horizontal'" :overflowedIndicator="mobileIcon" style="width: 100%">
-          <a-menu-item key="home"><router-link to="/"> 主页 </router-link></a-menu-item>
+        <a-menu :selectedKeys="current" :mode="($store.state.style.screenWidth < 1100)?'inline':'horizontal'" :overflowedIndicator="mobileIcon" style="width: 100%">
+          <a-menu-item key="Home"><router-link to="/"> 主页 </router-link></a-menu-item>
           <a-menu-item key="music"> 音乐 </a-menu-item>
           <a-menu-item key="friend"> 友链 </a-menu-item>
           <a-menu-item key="about" > 关于 </a-menu-item>
           <a-menu-item key="toolbox" > 工具箱 </a-menu-item>
-          <a-menu-item key="login" ><router-link to="/login"> 登录 </router-link></a-menu-item>
+          <a-menu-item key="Admin" ><router-link to="/admin">  后台 </router-link></a-menu-item>
         </a-menu>
       </div>
 
@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      current: ['home'],
+      current: ['Home'],
       screenWidth: undefined,
       mobile: {
         navDisplay: false,
@@ -48,14 +48,24 @@ export default {
     mobileIcon() {
       return <icon-application-menu theme="filled" size="18"/>
     },
+
+    getActive() {
+      setTimeout(() => {
+        this.current[0] = this.$route.meta.active[0]
+        this.$forceUpdate();
+        // console.log();
+        
+      }, 150);
+    }
   },
   mounted() {
-    setTimeout(() => {
-      console.log(this.$route);
-      
-    }, 200);
+    this.getActive();
   },
-  watch: {}
+  watch: {
+    '$route': function(to, from) {
+      this.getActive();
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
