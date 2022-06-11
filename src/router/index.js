@@ -8,32 +8,61 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    meta: { auth: false, footer: true },
+    meta: { 
+      auth: false,
+      footer: true,
+      active: ['Home']
+    },
     component: () => import('@/views/Home.vue')
   },
   {
     path: '/article',
     name: 'Article',
-    meta: { auth: false, footer: true },
+    meta: {
+      auth: false,
+      footer: true,
+      active: ['Article']
+    },
     component: () => import('@/views/Article.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    meta: { auth: false, footer: true },
+    meta: {
+      auth: false,
+      footer: true,
+      active: ['Admin']
+    },
     component: () => import('@/views/Login.vue')
   },
   {
     path: '/admin',
     name: 'Admin',
-    meta: { auth: true },
+    meta: { 
+      auth: true,
+      active: ['Admin', '']
+    },
     component: () => import('@/views/Admin/index.vue'),
     children: [
       {
         path: 'articlelist',
         name: 'Admin-Article-list',
-        meta: { auth: true, footer: false },
+        meta: {
+          auth: true,
+          footer: false,
+          active: ['Admin', 'Article']
+        },
         component: () => import('@/views/Admin/ArticleManage/list.vue'),
+      },
+      {
+        path: 'articleedit',
+        name: 'Admin-Article-edit',
+        meta: {
+          auth: true,
+          footer: false,
+          active: ['Admin', 'Article']
+        },
+        component: () => import('@/views/Admin/ArticleManage/edit.vue'),
       }
     ]
   }
