@@ -25,7 +25,7 @@
     </div>
 
     <div class="opeartWarp">
-      <a-button type="primary"><icon-write theme="outline" :strokeWidth="3"/> 撰写新文章 </a-button>
+      <a-button type="primary" @click="add"><icon-write theme="outline" :strokeWidth="3"/> 撰写新文章 </a-button>
       <a-button type="danger" :disabled="articleList.selectedRowKeys.length === 0"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
     </div>
 
@@ -163,6 +163,16 @@ export default {
       this.page.offset = 1;
       this.page.limits = 10;
       this.getArticleList();
+    },
+
+    // 点击撰写新文章
+    add() {
+      this.$router.push({
+        path: "/admin/articleedit",
+        query: {
+          type: "add"
+        }
+      })
     },
 
     // 点击编辑
