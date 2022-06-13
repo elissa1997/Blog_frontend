@@ -3,19 +3,19 @@
     <a-menu
       class="vMenu"
       mode="inline"
-      :default-selected-keys="['1']"
+      :selectedKeys="current"
     >
-      <a-menu-item key="1">
+      <a-menu-item key="Setting">
         <span class="anticon"><icon-setting-two theme="outline" size="16" :strokeWidth="3"/></span>
         <span>系统设置</span>
       </a-menu-item>
-      <a-menu-item key="2">
+      <a-menu-item key="Article">
         <router-link to="/admin/articlelist">
           <span class="anticon"><icon-view-list theme="outline" size="16" :strokeWidth="3"/></span>
           <span>文章管理</span>
         </router-link>
       </a-menu-item>
-      <a-menu-item key="3"> 
+      <a-menu-item key="Comment"> 
         <span class="anticon"><icon-comment theme="outline" size="16" :strokeWidth="3"/></span>
         <span>评论管理</span> 
       </a-menu-item>
@@ -36,13 +36,25 @@ export default {
   },
   data() {
     return {
+      current: ['Setting'],
     };
   },
-  methods: {},
-  mounted() {
-    console.log(this.$route)
+  methods: {
+    getActive() {
+      setTimeout(() => {
+        this.current[0] = this.$route.meta.active[1]
+        this.$forceUpdate();
+      }, 150);
+    }
   },
-  watch: {},
+  mounted() {
+    this.getActive();
+  },
+  watch: {
+    '$route': function(to, from) {
+      this.getActive();
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>

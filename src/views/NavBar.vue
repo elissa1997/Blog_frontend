@@ -53,8 +53,6 @@ export default {
       setTimeout(() => {
         this.current[0] = this.$route.meta.active[0]
         this.$forceUpdate();
-        // console.log();
-        
       }, 150);
     }
   },
