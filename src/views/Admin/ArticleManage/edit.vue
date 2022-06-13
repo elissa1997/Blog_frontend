@@ -10,25 +10,32 @@
         <a-row :gutter="20">
           <a-col :span="16">
             <a-form-item>
-              <a-input v-model="articleDetail.title" placeholder="请输入文章简介" />
+              <a-input v-model="articleDetail.title" placeholder="请输入文章标题" />
             </a-form-item>
 
             <a-form-item>
+              <div class="preview" v-html="compiledMarkdown" id="markdown" v-if="preview"></div>
+
               <a-textarea
+                v-else
                 v-model="articleDetail.content"
-                placeholder="Autosize height with minimum and maximum number of lines"
-                :auto-size="{ minRows: 2, maxRows: 32 }"
+                placeholder="请输入文章正文"
+                :auto-size="{ minRows: 32, maxRows: 32 }"
               />
             </a-form-item>
           </a-col>
 
           <a-col :span="8">
+            <a-form-item label="预览文章"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
+              <a-switch v-model="preview" />
+            </a-form-item>
+
             <a-form-item label="封面连接"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
               <a-input v-model="articleDetail.cover" placeholder="请输入封面URL" />
             </a-form-item>
 
             <a-form-item label="封面预览"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
-              <img class="coverPreview" :src="articleDetail.cover" style="width: 100%;" />
+              <img class="coverPreview" :src="articleDetail.cover" style="width: 100%;"/>
             </a-form-item>
 
             <a-form-item label="文章分类"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
@@ -42,6 +49,10 @@
                 <a-select-option :value="option.key" v-for="option in dict.status" :key="option.key">{{option.value}}</a-select-option>
               </a-select>
             </a-form-item>
+
+            <a-form-item :label-col="layout.labelCol" :wrapper-col="{ span: 20, offset: 4 }">
+              <a-button type="primary" @click="save">保存</a-button>
+            </a-form-item>
           </a-col>
         </a-row>
       </a-form>
@@ -52,8 +63,10 @@
 <script>
 import Vue from 'vue'
 import load from "@/components/public/loading.vue";
-import { Button, Modal, Form, Input, Row, Col, Select } from 'ant-design-vue';
-import { detail } from "@/network/article.js";
+import { marked } from "marked";
+import Prism from "prismjs";
+import { Button, Modal, Form, Input, Row, Col, Select, Switch } from 'ant-design-vue';
+import { detail, add } from "@/network/article.js";
 import { dict } from "@/network/static.js";
 Modal.install(Vue)
 
@@ -70,11 +83,13 @@ export default {
     [Row.name]: Row,
     [Col.name]: Col,
     [Select.name]: Select,
-    [Select.Option.name]: Select.Option
+    [Select.Option.name]: Select.Option,
+    [Switch.name]: Switch,
   },
   data() {
     return {
       dataLoading: true,
+      preview: false,
       layout: {
         labelCol: { span: 4 },
         wrapperCol: { span: 20 },
@@ -106,8 +121,30 @@ export default {
         }).finally(() => {
           this.dataLoading = false;
         })
+      }else if (this.type === 'add') {
+        this.articleDetail = {
+          title: undefined,
+          content: undefined,
+          cover: undefined,
+          category: undefined,
+          status: undefined,
+        }
+        setTimeout(() => {
+          this.dataLoading = false;
+        }, 200);
       }
     },
+    // 保存文章
+    save() {
+      this.articleDetail.content = this.articleDetail.content.replace(/\n/g, "<br>");
+      if (this.type === 'edit') {
+      
+      }else if (this.type === 'add') {
+
+      }
+    },
+
+    // 返回列表
     back() {
       let this_ = this;
       Modal.confirm({
@@ -132,6 +169,9 @@ export default {
       return {
         a_id: this.id
       }
+    },
+    compiledMarkdown() {
+      return marked(this.articleDetail.content);
     },
   },
   watch: {}
@@ -159,6 +199,17 @@ export default {
   padding: 10px;
 
   .coverPreview {
+    border-radius: 5px;
+    max-height: 260px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .preview {
+    height: calc(700px - (2 * 10px));
+    overflow-y: auto;
+    padding: 0px 15px;
+    border: 1px solid #d9d9d9;
     border-radius: 5px;
   }
 }
