@@ -229,10 +229,10 @@ export default {
 
 .tableWarp {
   margin-top: 10px;
-  ::v-deep .ant-table-body{
-    height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px)) !important;
-    overflow-y: auto;
-  }
+  // ::v-deep .ant-table-body{
+  //   height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px)) !important;
+  //   overflow-y: auto;
+  // }
 }
 
 .paginationWarp {
