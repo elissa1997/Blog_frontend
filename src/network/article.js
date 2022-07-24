@@ -25,3 +25,12 @@ export function add(data) {
     headers: {'token': Cookies.get('token')}
   })
 }
+
+export function del(data) {
+  return instance_api({
+    url: process.env.VUE_APP_API+'/article/del',
+    method: 'post',
+    data,
+    headers: {'token': Cookies.get('token')}
+  })
+}

@@ -30,6 +30,10 @@
               <a-switch v-model="preview" />
             </a-form-item>
 
+            <a-form-item label="文章作者"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
+              <a-input v-model="articleDetail.cover" placeholder="请输入文章作者" />
+            </a-form-item>
+
             <a-form-item label="封面连接"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
               <a-input v-model="articleDetail.cover" placeholder="请输入封面URL" />
             </a-form-item>
@@ -136,11 +140,18 @@ export default {
     },
     // 保存文章
     save() {
-      this.articleDetail.content = this.articleDetail.content.replace(/\n/g, "<br>");
+      // this.articleDetail.content = this.articleDetail.content.replace(/\n/g, "<br>");
       if (this.type === 'edit') {
       
       }else if (this.type === 'add') {
-
+        add(this.save_data).then(res => {
+          if (res.code === 200) {
+            this.$message.success('撰写新文章成功');
+            this.$router.go(-1);
+          }else{
+            this.$message.error('撰写新文章失败，请重试');
+          }
+        })
       }
     },
 
@@ -173,6 +184,10 @@ export default {
     compiledMarkdown() {
       return marked(this.articleDetail.content);
     },
+
+    save_data() {
+      return this.articleDetail
+    }
   },
   watch: {}
 }

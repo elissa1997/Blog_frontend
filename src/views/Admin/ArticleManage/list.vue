@@ -26,7 +26,7 @@
 
     <div class="opeartWarp">
       <a-button type="primary" @click="add"><icon-write theme="outline" :strokeWidth="3"/> 撰写新文章 </a-button>
-      <a-button type="danger" :disabled="articleList.selectedRowKeys.length === 0"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
+      <a-button type="danger" :disabled="articleList.selectedRowKeys.length === 0" @click="delMultiple"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
     </div>
 
     <div class="tableWarp">
@@ -44,7 +44,7 @@
         <span slot="action" slot-scope="text, record">
           <a-button type="link" @click="edit(record)"><icon-writing-fluently theme="outline" :strokeWidth="3"/> 编辑 </a-button>
           <a-divider type="vertical" />
-          <a-button type="link"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
+          <a-button type="link" @click="delSingle(record)"><icon-delete theme="outline" :strokeWidth="3"/> 删除 </a-button>
         </span>
       </a-table>
     </div>
@@ -66,7 +66,7 @@
 
 <script>
 import { Button, Table, Pagination, Form, Input, Select, Divider } from 'ant-design-vue';
-import { list } from "@/network/article.js";
+import { list, del } from "@/network/article.js";
 import { dict } from "@/network/static.js";
 import { translate, resetObj, filterObj } from "@/util/tool.js";
 export default {
@@ -184,6 +184,19 @@ export default {
           type: "edit"
         }
       })
+    },
+    // 删除多个
+    delMultiple() {
+      del(this.del_data).then(res => {
+        console.log(res);
+      })
+    },
+
+    // 删除单个
+    delSingle(record) {
+      del({id: record.id}).then(res => {
+        console.log(res);
+      })
     }
   },
   mounted() {
@@ -196,6 +209,11 @@ export default {
         search: filterObj(this.search),
         offset: this.page.offset,
         limits: this.page.limits,
+      }
+    },
+    del_data: function () {
+      return {
+        id: this.articleList.selectedRowKeys
       }
     }
   },
@@ -229,10 +247,10 @@ export default {
 
 .tableWarp {
   margin-top: 10px;
-  // ::v-deep .ant-table-body{
-  //   height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px)) !important;
-  //   overflow-y: auto;
-  // }
+  ::v-deep .ant-table-body{
+    max-height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px)) !important;
+    overflow-y: auto;
+  }
 }
 
 .paginationWarp {
