@@ -33,7 +33,7 @@
             </span>
             <span class="metaItem comment">
               <icon-comment theme="outline" size="18" :strokeWidth="3"/>
-              {{item.commentsNum}}
+              {{item.comments.length}}
             </span>
           </div>
           <div class="summary">

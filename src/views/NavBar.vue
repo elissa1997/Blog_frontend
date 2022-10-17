@@ -51,7 +51,7 @@ export default {
 
     getActive() {
       setTimeout(() => {
-        this.current[0] = this.$route.meta.active[0]
+        this.current[0] = this.$route?.meta.active[0]
         this.$forceUpdate();
       }, 150);
     }
