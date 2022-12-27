@@ -1,5 +1,26 @@
 <template>
-  <div id="comments">
+  <div id="comments" :class="{ mobile:  $store.state.style.screenWidth < 1100 , desktop: $store.state.style.screenWidth >= 1100}">
+
+    <div class="addOrReply">
+      <div class="meta">
+        <a-input v-model="newComment.userName" class="inline" placeholder="昵称" />
+        <a-input v-model="newComment.email" class="inline" placeholder="Email（用于区分用户和确定头像）" />
+        <a-input v-model="newComment.url" placeholder="你的网站URL" />
+      </div>
+
+
+      <div class="content">
+        <a-textarea v-model="newComment.text" placeholder="输入评论内容，华为云提供内容审核服务" :rows="7" />
+      </div>
+
+      <div class="actions">
+        <a-button v-if="parentObj" @click="cancelReply">取消回复{{parentObj.userName}}</a-button>
+        <a-button type="primary" @click="addComment">发布</a-button>
+        
+      </div>
+    </div>
+
+    <!-- <a-divider>With Text</a-divider> -->
 
     <template v-if="comments">
       <div class="commentItem" v-for="item in comments" :key="item.id">
@@ -11,7 +32,7 @@
             <!-- <span>{{item.id}}</span> -->
             <span class="name">{{item.userName}}</span>
             <span class="at" v-if="item.parentId !== 0">@</span>
-            <span class="reply" v-if="item.parentId !== 0">{{item.parentName}}</span>
+            <span class="reply" v-if="item.parentId !== 0">{{getParent(item.parentId).userName}}</span>
             <span class="time">{{$dayjs(item.createdAt).format('YYYY-MM-DD HH:mm')}}</span>
           </div>
           <div class="content">
@@ -20,9 +41,6 @@
               <icon-back theme="filled" size="14" fill="#9b9b9b" :strokeWidth="3"/>
             </div>
           </div>
-          <template v-if="Array.isArray(item.reply)">
-            <comments :comments="item.reply"/>
-          </template>
         </div>
       </div>
     </template>
@@ -35,6 +53,8 @@
 
 <script>
 import md5 from 'md5';
+import { Input, Button, Divider } from 'ant-design-vue';
+import { add } from "@/network/comment.js";
 
 export default {
   name: "comments",
@@ -44,11 +64,28 @@ export default {
       default: undefined
     }
   },
-  components: {},
+  components: {
+    [Input.name]: Input,
+    [Input.TextArea.name]: Input.TextArea,
+    [Button.name]: Button,
+    [Divider.name]: Divider
+  },
   data() {
-    return {}
+    return {
+      newComment: {
+        aId: this.$route.query.id,
+        parentId: this.parentObj ? this.parentObj.id : 0,
+        userName: undefined,
+        email: undefined,
+        url: undefined,
+        agent: navigator.userAgent,
+        text: undefined,
+      },
+      parentObj: undefined
+    }
   },
   methods: {
+    // 通过email获取头像
     avatarByemail(email) {
       if (email) {
         let hash = md5(email.replace(/^\s*|\s*$/g,"").toLowerCase());
@@ -57,9 +94,34 @@ export default {
         return `https://cravatar.cn/avatar/404`
       }
     },
+
+    // 获取父级评论对象
+    getParent(id) {
+      return this.comments.find(item => item.id == id);
+    },
+
+    // 点击回复
     reply(item) {
-      console.log(item);
-      this.$EventBus.$emit("commentReply", item);
+      this.parentObj = item;
+    },
+
+    // 取消回复
+    cancelReply() {
+      this.parentObj = undefined;
+    },
+
+    // 发布评论
+    addComment() {
+      add(this.newComment).then(res => {
+        if (res.status === 200) {
+          this.$message.success('评论成功');
+          this.newComment.text = undefined;
+          this.parentObj = undefined
+          
+        } else {
+          this.$message.error(res.msg);
+        }
+      })
     }
   },
   mounted() {},
@@ -74,7 +136,46 @@ export default {
 <style lang="scss" scoped>
 #comments{
   width: 100%;
-  margin-top: 10px;
+}
+
+.mobile {
+  .addOrReply .meta {
+    align-items: center;
+    flex-direction: column;
+    input:not(:last-of-type) {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.desktop {
+  .addOrReply .meta {
+    align-items: center;
+    justify-content: space-between;
+    input {
+      width: calc(100% / 3 - 5px);
+    }
+  }
+}
+
+.addOrReply {
+  margin-bottom: 20px;
+
+  .meta {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .content {
+    margin-bottom: 10px;
+  }
+
+  .actions {
+    text-align: start;
+    ::v-deep .ant-btn:not(:last-of-type) {
+      margin-right: 10px;
+    }
+  }
 }
 
 .commentItem {

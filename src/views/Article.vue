@@ -24,7 +24,7 @@
               </span>
               <span class="metaItem comment">
                 <icon-comment theme="outline" :strokeWidth="3"/>
-                {{articleDetail.commentsNum}}
+                {{articleDetail.comments.length}}
               </span>
             </div>
           </div>
@@ -39,12 +39,12 @@
         <!-- <markdown-it-vue class="content" :content="articleDetail.content" /> -->
 
         <div class="commentsWarp">
-          <commentsList ref="commentsList" :comments="comments"/>
+          <comments ref="comments" :comments="articleDetail.comments"/>
         </div>
 
-        <div class="replyCommentWarp">
+        <!-- <div class="replyCommentWarp">
           <replyComment/>
-        </div>
+        </div> -->
 
 
       </template>
@@ -64,7 +64,7 @@ import Prism from "prismjs";
 // import MarkdownItVue from 'markdown-it-vue'
 // import 'markdown-it-vue/dist/markdown-it-vue.css'
 
-import commentsList from '@/components/comments.vue';
+import comments from '@/components/comments.vue';
 import replyComment from '@/components/replyComment.vue';
 import { listToTree, nestComment } from '@/util/tool.js';
 import { detail } from "@/network/article.js";
@@ -76,8 +76,7 @@ export default {
   props: {},
   components: {
     // MarkdownItVue,
-    commentsList,
-    replyComment
+    comments,
   },
   data() {
     return {
@@ -135,7 +134,7 @@ export default {
   },
   mounted() {
     this.getArticleDetail();
-    this.getArrticleComment();
+    // this.getArrticleComment();
 
     // 添加回复成功(事件总线)
     this.$EventBus.$on("commentAddSucess", () => {
@@ -148,11 +147,11 @@ export default {
         a_id: this.$route.query.id
       }
     },
-    listByArticle_params: function() {
-      return {
-        a_id: this.$route.query.id
-      }
-    },
+    // listByArticle_params: function() {
+    //   return {
+    //     a_id: this.$route.query.id
+    //   }
+    // },
     compiledMarkdown() {
       return marked(this.articleDetail.content);
     },
