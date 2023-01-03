@@ -36,8 +36,9 @@
         :pagination="false"
         :columns="articleList.columns"
         :data-source="articleList.data"
-        :scroll="{y:'auto'}"
+        :scroll="{y:'calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px))'}"
       >
+        <span slot="comments" slot-scope="comments">{{comments.length}}</span>
         <span slot="created_at" slot-scope="created_at">{{$dayjs(created_at).format('YYYY-MM-DD HH:mm:ss')}}</span>
         <span v-if="dict" slot="category" slot-scope="category">{{translate(dict, 'category', category).value}}</span>
         <span v-if="dict" slot="status" slot-scope="status">{{translate(dict, 'status', status).value}}</span>
@@ -98,7 +99,7 @@ export default {
           { title: '标题', dataIndex: 'title'},
           { title: '创建时间', dataIndex: 'created_at', scopedSlots: { customRender: 'created_at' }, width: 160},
           { title: '分类', dataIndex: 'category', scopedSlots: { customRender: 'category' }, width: 100, align: 'center'},
-          { title: '评论', dataIndex: 'commentsNum', width: 80, align: 'center'},
+          { title: '评论', dataIndex: 'comments', scopedSlots: { customRender: 'comments' }, width: 80, align: 'center'},
           { title: '状态', dataIndex: 'status', scopedSlots: { customRender: 'status' }, width: 100, align: 'center'},
           { title: '操作', scopedSlots: { customRender: 'action' }, width: 220, align: 'center'},
         ],
@@ -247,10 +248,10 @@ export default {
 
 .tableWarp {
   margin-top: 10px;
-  ::v-deep .ant-table-body{
-    max-height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px)) !important;
-    overflow-y: auto;
-  }
+  // ::v-deep .ant-table-body{
+  //   max-height: calc(100vh - (60px + 30px + 20px + 40px + 42px + 64px + 42px)) !important;
+  //   overflow-y: auto;
+  // }
 }
 
 .paginationWarp {

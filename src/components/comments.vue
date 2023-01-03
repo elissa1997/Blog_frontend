@@ -117,7 +117,7 @@ export default {
           this.$message.success('评论成功');
           this.newComment.text = undefined;
           this.parentObj = undefined
-          
+          this.$emit('addCommentSuccess');
         } else {
           this.$message.error(res.msg);
         }
@@ -128,7 +128,7 @@ export default {
   computed: {
   },
   beforeDestroy() {
-    this.$EventBus.$off("commentReply");
+    
   },
   watch: {}
 }

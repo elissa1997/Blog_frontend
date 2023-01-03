@@ -39,12 +39,9 @@
         <!-- <markdown-it-vue class="content" :content="articleDetail.content" /> -->
 
         <div class="commentsWarp">
-          <comments ref="comments" :comments="articleDetail.comments"/>
+          <comments ref="comments" :comments="articleDetail.comments" @addCommentSuccess="getArticleDetail"/>
         </div>
 
-        <!-- <div class="replyCommentWarp">
-          <replyComment/>
-        </div> -->
 
 
       </template>
@@ -65,10 +62,7 @@ import Prism from "prismjs";
 // import 'markdown-it-vue/dist/markdown-it-vue.css'
 
 import comments from '@/components/comments.vue';
-import replyComment from '@/components/replyComment.vue';
-import { listToTree, nestComment } from '@/util/tool.js';
 import { detail } from "@/network/article.js";
-import { listByArticle } from "@/network/comment.js";
 
 
 export default {
@@ -105,15 +99,6 @@ export default {
       })
     },
 
-    getArrticleComment() {
-      listByArticle(this.listByArticle_params).then(res => {
-        if (res.status === 200) {
-          nestComment(res.data.rows);
-          this.comments = nestComment(res.data.rows);
-        }
-      })
-    },
-
     renderTex() {
       const renderOption = {
         delimiters: [
@@ -134,12 +119,6 @@ export default {
   },
   mounted() {
     this.getArticleDetail();
-    // this.getArrticleComment();
-
-    // 添加回复成功(事件总线)
-    this.$EventBus.$on("commentAddSucess", () => {
-      this.getArrticleComment;
-    })
   },
   computed: {
     articleDetail_params: function() {
@@ -147,11 +126,6 @@ export default {
         a_id: this.$route.query.id
       }
     },
-    // listByArticle_params: function() {
-    //   return {
-    //     a_id: this.$route.query.id
-    //   }
-    // },
     compiledMarkdown() {
       return marked(this.articleDetail.content);
     },

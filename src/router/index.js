@@ -63,7 +63,17 @@ const routes = [
           active: ['Admin', 'Article']
         },
         component: () => import('@/views/Admin/ArticleManage/edit.vue'),
-      }
+      },
+      {
+        path: 'commentlist',
+        name: 'Admin-Comment-list',
+        meta: {
+          auth: true,
+          footer: false,
+          active: ['Admin', 'Comment']
+        },
+        component: () => import('@/views/Admin/CommentManage/list.vue'),
+      },
     ]
   }
 ]

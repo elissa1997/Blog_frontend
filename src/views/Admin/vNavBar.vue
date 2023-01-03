@@ -15,9 +15,11 @@
           <span>文章管理</span>
         </router-link>
       </a-menu-item>
-      <a-menu-item key="Comment"> 
-        <span class="anticon"><icon-comment theme="outline" size="16" :strokeWidth="3"/></span>
-        <span>评论管理</span> 
+      <a-menu-item key="Comment">
+        <router-link to="/admin/commentlist">
+          <span class="anticon"><icon-comment theme="outline" size="16" :strokeWidth="3"/></span>
+          <span>评论管理</span>
+        </router-link>
       </a-menu-item>
     </a-menu>
   </div>
