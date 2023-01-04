@@ -1,6 +1,5 @@
 <template>
   <div id="Article" :class="{ mobile:  $store.state.style.screenWidth < 1100 , desktop: $store.state.style.screenWidth >= 1100}">
-    <!-- <remote-css href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/KaTeX/0.5.1/katex.min.css"></remote-css> -->
     <div class="container article">
 
       <template v-if="!loading">
@@ -30,10 +29,12 @@
           </div>
         </div>
 
-        <div id="markdown" class="content">
+        <div class="content">
           <!-- {{articleDetail.content}}
           <vue-markdown @rendered="renderFinsh">{{articleDetail.content}}</vue-markdown> -->
-          <div id="tex" v-html="compiledMarkdown"></div>
+          <!-- <div id="tex" v-html="compiledMarkdown"></div> -->
+          <!-- <markdown-it-vue id="markdown-body" ref="myMarkdownItVue" :content="articleDetail.content" :options="options" /> -->
+          <markdown :content="articleDetail.content"/>
         </div>
 
         <!-- <markdown-it-vue class="content" :content="articleDetail.content" /> -->
@@ -52,15 +53,7 @@
 </template>
 
 <script>
-import { marked } from "marked";
-import Prism from "prismjs";
-
-// import 'katex/dist/katex.css';
-// import renderMathInElement from 'katex/contrib/auto-render/auto-render';
-
-// import MarkdownItVue from 'markdown-it-vue'
-// import 'markdown-it-vue/dist/markdown-it-vue.css'
-
+import markdown from "@/components/public/markdown.vue";
 import comments from '@/components/comments.vue';
 import { detail } from "@/network/article.js";
 
@@ -69,7 +62,7 @@ export default {
   name: "Article",
   props: {},
   components: {
-    // MarkdownItVue,
+    markdown,
     comments,
   },
   data() {
@@ -82,39 +75,13 @@ export default {
   methods: {
     // renderMathInElement,
     getArticleDetail() {
-
-
       detail(this.articleDetail_params).then(res => {
         if (res.status === 200) {
           this.articleDetail = res.data;
         }
       }).finally(() => {
         this.loading = false;
-        this.$nextTick(() => {
-          Prism.highlightAll();
-        });
-        // setTimeout(() => {
-        //   this.renderTex();
-        // }, 300);
       })
-    },
-
-    renderTex() {
-      const renderOption = {
-        delimiters: [
-          {left: '$$', right: '$$', display: true},
-          {left: '$', right: '$', display: false},
-          {left: "\\(", right: "\\)", display: false},
-          {left: "\\[", right: "\\]", display: true}
-        ],
-        strict: "ignore",
-        throwOnError : true,
-        // displayMode: true
-      }
-      const el = document.getElementById('tex');
-      this.renderMathInElement(el, renderOption);
-
-      
     },
   },
   mounted() {
@@ -125,9 +92,6 @@ export default {
       return {
         a_id: this.$route.query.id
       }
-    },
-    compiledMarkdown() {
-      return marked(this.articleDetail.content);
     },
 
   },

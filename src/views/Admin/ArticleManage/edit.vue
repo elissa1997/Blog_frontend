@@ -13,22 +13,31 @@
               <a-input v-model="articleDetail.title" placeholder="请输入文章标题" />
             </a-form-item>
 
-            <a-form-item>
-              <div class="preview" v-html="compiledMarkdown" id="markdown" v-if="preview"></div>
+            <a-form-item style="margin-bottom: 0px">
+              <!-- <div class="preview" v-html="compiledMarkdown" id="markdown" v-if="preview"></div>
 
               <a-textarea
                 v-else
                 v-model="articleDetail.content"
                 placeholder="请输入文章正文"
                 :auto-size="{ minRows: 32, maxRows: 32 }"
-              />
+              /> -->
+              <mavon-editor
+                class="edit"
+                v-model="articleDetail.content"
+                
+                :boxShadow = "false"
+                codeStyle="vs2015"
+                previewBackground	="#fffff000"
+              >
+              </mavon-editor>
             </a-form-item>
           </a-col>
 
           <a-col :span="8">
-            <a-form-item label="预览文章"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
+            <!-- <a-form-item label="预览文章"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
               <a-switch v-model="preview" />
-            </a-form-item>
+            </a-form-item> -->
 
             <a-form-item label="文章作者"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
               <a-input v-model="articleDetail.cover" placeholder="请输入文章作者" />
@@ -42,13 +51,13 @@
               <img class="coverPreview" :src="articleDetail.cover" style="width: 100%;"/>
             </a-form-item>
 
-            <a-form-item label="文章分类"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
+            <a-form-item label="文章分类"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol" v-if="dict">
               <a-select style="width: 100%" placeholder="文章分类" v-model="articleDetail.category">
                 <a-select-option :value="option.key" v-for="option in dict.category" :key="option.key">{{option.value}}</a-select-option>
               </a-select>
             </a-form-item>
 
-            <a-form-item label="文章状态"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
+            <a-form-item label="文章状态"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol" v-if="dict">
               <a-select style="width: 100%" placeholder="文章状态" v-model="articleDetail.status">
                 <a-select-option :value="option.key" v-for="option in dict.status" :key="option.key">{{option.value}}</a-select-option>
               </a-select>
@@ -67,10 +76,8 @@
 <script>
 import Vue from 'vue'
 import load from "@/components/public/loading.vue";
-import { marked } from "marked";
-import Prism from "prismjs";
 import { Button, Modal, Form, Input, Row, Col, Select, Switch } from 'ant-design-vue';
-import { detail, add } from "@/network/article.js";
+import { detail, add, update } from "@/network/article.js";
 import { dict } from "@/network/static.js";
 Modal.install(Vue)
 
@@ -93,7 +100,6 @@ export default {
   data() {
     return {
       dataLoading: true,
-      preview: false,
       layout: {
         labelCol: { span: 4 },
         wrapperCol: { span: 20 },
@@ -142,10 +148,24 @@ export default {
     save() {
       // this.articleDetail.content = this.articleDetail.content.replace(/\n/g, "<br>");
       if (this.type === 'edit') {
-      
+
+        let update_data = {
+          id: this.id,
+          updateData: this.save_data
+        }
+        update(update_data).then(res => {
+          if (res.status === 200) {
+            this.$message.success('修改文章成功');
+            this.$router.go(-1);
+          }else{
+            this.$message.error('修改文章失败，请重试');
+          }
+        })
+
+
       }else if (this.type === 'add') {
         add(this.save_data).then(res => {
-          if (res.code === 200) {
+          if (res.status === 200) {
             this.$message.success('撰写新文章成功');
             this.$router.go(-1);
           }else{
@@ -181,11 +201,10 @@ export default {
         a_id: this.id
       }
     },
-    compiledMarkdown() {
-      return marked(this.articleDetail.content);
-    },
 
     save_data() {
+      delete this.articleDetail.comments
+      this.articleDetail.updatedAt = this.$dayjs().toDate();
       return this.articleDetail
     }
   },
@@ -212,20 +231,17 @@ export default {
 
 .editWarp {
   padding: 10px;
+  
+  .edit {
+    height: calc(100vh - (60px + 30px + 20px + 32px + 20px + 40px + 24px));
+    z-index: 1;
+  }
 
   .coverPreview {
     border-radius: 5px;
     max-height: 260px;
     object-fit: cover;
     object-position: center;
-  }
-
-  .preview {
-    height: calc(700px - (2 * 10px));
-    overflow-y: auto;
-    padding: 0px 15px;
-    border: 1px solid #d9d9d9;
-    border-radius: 5px;
   }
 }
 </style>

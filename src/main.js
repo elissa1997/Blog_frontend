@@ -7,7 +7,10 @@ import '@/assets/style/public.scss';
 import {install} from '@icon-park/vue/es/all';
 import dayjs from "dayjs";
 import { message } from 'ant-design-vue';
-
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
+Vue.use(mavonEditor)
 
 
 Vue.config.productionTip = false;

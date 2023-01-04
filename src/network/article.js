@@ -26,6 +26,15 @@ export function add(data) {
   })
 }
 
+export function update(data) {
+  return instance_api({
+    url: process.env.VUE_APP_API+'/article/update',
+    method: 'post',
+    data,
+    headers: {'token': Cookies.get('token')}
+  })
+}
+
 export function del(data) {
   return instance_api({
     url: process.env.VUE_APP_API+'/article/del',

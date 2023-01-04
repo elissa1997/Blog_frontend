@@ -66,10 +66,13 @@
 </template>
 
 <script>
-import { Button, Table, Pagination, Form, Input, Select, Divider } from 'ant-design-vue';
+import Vue from 'vue';
+import { Button, Table, Pagination, Form, Input, Select, Divider, Modal } from 'ant-design-vue';
 import { list, del } from "@/network/article.js";
 import { dict } from "@/network/static.js";
 import { translate, resetObj, filterObj } from "@/util/tool.js";
+Modal.install(Vue);
+
 export default {
   name: "ArticleManageList",
   props: {},
@@ -188,16 +191,42 @@ export default {
     },
     // 删除多个
     delMultiple() {
-      del(this.del_data).then(res => {
-        console.log(res);
-      })
+      let this_ = this;
+      Modal.confirm({
+        title: '删除提示',
+        content: '确认删除多条吗？',
+        okText: '删除',
+        cancelText: '取消',
+        onOk() {
+          del(this_.del_data).then(res => {
+            if (res.status == 200) {
+              this_.$message.success('删除成功');
+              this_.getArticleList();
+            }
+          })
+        },
+        onCancel() {},
+      });
     },
 
     // 删除单个
     delSingle(record) {
-      del({id: record.id}).then(res => {
-        console.log(res);
-      })
+      let this_ = this;
+      Modal.confirm({
+        title: '删除提示',
+        content: '确认删除此条吗？',
+        okText: '删除',
+        cancelText: '取消',
+        onOk() {
+          del({id: record.id}).then(res => {
+            if (res.status == 200) {
+              this_.$message.success('删除成功');
+              this_.getArticleList();
+            }
+          })
+        },
+        onCancel() {},
+      });
     }
   },
   mounted() {
