@@ -26,6 +26,26 @@ const routes = [
     component: () => import('@/views/Article.vue')
   },
   {
+    path: '/links',
+    name: 'Links',
+    meta: {
+      auth: false,
+      footer: true,
+      active: ['Links']
+    },
+    component: () => import('@/views/Links.vue')
+  },
+  {
+    path: '/about',
+    name: 'About',
+    meta: {
+      auth: false,
+      footer: true,
+      active: ['About']
+    },
+    component: () => import('@/views/About.vue')
+  },
+  {
     path: '/login',
     name: 'Login',
     meta: {

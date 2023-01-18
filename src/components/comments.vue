@@ -32,8 +32,9 @@
             <!-- <span>{{item.id}}</span> -->
             <span class="name">{{item.userName}}</span>
             <span class="at" v-if="item.parentId !== 0">@</span>
-            <span class="reply" v-if="item.parentId !== 0">{{getParent(item.parentId).userName}}</span>
+            <span class="reply" v-if="item.parentId !== 0">{{getParentName(item.parentId)}}</span>
             <span class="time">{{$dayjs(item.createdAt).format('YYYY-MM-DD HH:mm')}}</span>
+
           </div>
           <div class="content">
             {{item.text}}
@@ -52,7 +53,7 @@
 </template>
 
 <script>
-import md5 from 'md5';
+import { avatarByemail } from "@/util/tool.js";
 import { Input, Button, Divider } from 'ant-design-vue';
 import { add } from "@/network/comment.js";
 
@@ -61,6 +62,10 @@ export default {
   props: {
     comments: {
       type: Array,
+      default: undefined
+    },
+    id: {
+      type: Number,
       default: undefined
     }
   },
@@ -73,7 +78,7 @@ export default {
   data() {
     return {
       newComment: {
-        aId: this.$route.query.id,
+        aId: this.id,
         parentId: this.parentObj ? this.parentObj.id : 0,
         userName: undefined,
         email: undefined,
@@ -86,18 +91,16 @@ export default {
   },
   methods: {
     // 通过email获取头像
-    avatarByemail(email) {
-      if (email) {
-        let hash = md5(email.replace(/^\s*|\s*$/g,"").toLowerCase());
-        return `https://cravatar.cn/avatar/${hash}?s=60`
-      }else{
-        return `https://cravatar.cn/avatar/404`
-      }
-    },
+    avatarByemail,
 
     // 获取父级评论对象
-    getParent(id) {
-      return this.comments.find(item => item.id == id);
+    getParentName(id) {
+      if (this.comments.find(item => item.id == id)) {
+        return this.comments.find(item => item.id == id).userName;
+        
+      }else{
+        return false;
+      }
     },
 
     // 点击回复
@@ -136,6 +139,7 @@ export default {
 <style lang="scss" scoped>
 #comments{
   width: 100%;
+  box-sizing: border-box;
 }
 
 .mobile {
