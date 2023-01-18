@@ -1,6 +1,6 @@
 <template>
   <div id="Article" :class="{ mobile:  $store.state.style.screenWidth < 1100 , desktop: $store.state.style.screenWidth >= 1100}">
-    <div class="container article">
+    <div class="container">
 
       <template v-if="!loading">
         <div class="head" :style="`background-image: url(${articleDetail.cover})`">
@@ -40,7 +40,7 @@
         <!-- <markdown-it-vue class="content" :content="articleDetail.content" /> -->
 
         <div class="commentsWarp">
-          <comments ref="comments" :comments="articleDetail.comments" @addCommentSuccess="getArticleDetail"/>
+          <comments ref="comments" :comments="articleDetail.comments" :id="$route.query.id" @addCommentSuccess="getArticleDetail"/>
         </div>
 
 
@@ -101,11 +101,13 @@ export default {
 <style lang="scss" scoped>
 #Article{
   background-color: $backGround-color;
+  overflow: auto;
 }
 
 .container {
+  
+  box-sizing: border-box;
   min-height: 50vh;
-  margin: 0px auto;
 
   .head{
     width: 100%;
@@ -198,9 +200,8 @@ export default {
 
 .mobile{
   
-  .article{
-    width: 100%;
-    
+  .container{
+    @include containerMobileWidth;
     .head{
       height: 200px;
       .text{
@@ -211,7 +212,7 @@ export default {
     }
 
     .content{
-      padding: 10px 20px;
+      padding: 10px 10px;
     }
     
     .commentsWarp {
@@ -228,9 +229,8 @@ export default {
 
 .desktop{
   
-  .article {
-    width: 1100px;
-    padding: 50px 0px;
+  .container {
+    @include containerDesktopWidth;
 
     .head{
       height: 300px;
@@ -243,7 +243,7 @@ export default {
     }
   
     .commentsWarp {
-      width: 1100px;
+      width: 100%;
       padding: 40px 80px;
     }
     .replyCommentWarp{

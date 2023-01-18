@@ -16,27 +16,27 @@
         </div>
         <div class="content">
           <!-- <div class="brand">
-            <div class="icon"><img :src="require('@/assets/img/brandIcon/Vue.png')" alt=""></div>
+            <div class="icon"><img :src="require('@/assets/icon/brandIcon/Vue.png')" alt=""></div>
             <div class="name">Vue.js</div>
           </div> -->
 
           <div class="brand">
-            <div class="icon"><img :src="require('@/assets/img/brandIcon/AntDesign.png')" alt=""></div>
+            <div class="icon"><img :src="require('@/assets/icon/brandIcon/AntDesign.png')" alt=""></div>
             <div class="name">Ant Design</div>
           </div>
 
           <!-- <div class="brand">
-            <div class="icon"><img :src="require('@/assets/img/brandIcon/IconPark.png')" alt=""></div>
+            <div class="icon"><img :src="require('@/assets/icon/brandIcon/IconPark.png')" alt=""></div>
             <div class="name">IconPark</div>
           </div> -->
 
           <div class="brand">
-            <div class="icon"><img :src="require('@/assets/img/brandIcon/HUAWEI.png')" alt=""></div>
+            <div class="icon"><img :src="require('@/assets/icon/brandIcon/HUAWEI.png')" alt=""></div>
             <div class="name">HUAWEI Cloud</div>
           </div>
 
           <div class="brand">
-            <div class="icon"><img :src="require('@/assets/img/brandIcon/EggJS.png')" alt=""></div>
+            <div class="icon"><img :src="require('@/assets/icon/brandIcon/EggJS.png')" alt=""></div>
             <div class="name">EggJS</div>
           </div>
 
@@ -52,34 +52,34 @@
         <div class="content">
           <div class="link">
             <a href=mailto:524948583@qq.com>
-              <div class="icon"><img :src="require('@/assets/img/brandIcon/email.png')" alt=""></div>
+              <div class="icon"><img :src="require('@/assets/icon/brandIcon/email.png')" alt=""></div>
               <div class="name">524948583@qq.com</div>
             </a>
           </div>
 
           <div class="link">
             <a href="https://weibo.com/u/7647615199" target="_blank">
-              <div class="icon"><img :src="require('@/assets/img/brandIcon/weibo.png')" alt=""></div>
+              <div class="icon"><img :src="require('@/assets/icon/brandIcon/weibo.png')" alt=""></div>
               <div class="name">微博@ElissaLiu_CN</div>
             </a>
           </div>
 
           <div class="link">
             <a href="https://github.com/elissa1997" target="_blank">
-              <div class="icon"><img :src="require('@/assets/img/brandIcon/github.png')" alt=""></div>
+              <div class="icon"><img :src="require('@/assets/icon/brandIcon/github.png')" alt=""></div>
               <div class="name">GitHub</div>
             </a>
           </div>
 
           <div class="link">
             <a href="https://www.facebook.com/profile.php?id=100004061595831" target="_blank">
-              <div class="icon"><img :src="require('@/assets/img/brandIcon/facebook.png')" alt=""></div>
+              <div class="icon"><img :src="require('@/assets/icon/brandIcon/facebook.png')" alt=""></div>
               <div class="name">Facebook@Elissa Liu</div>
             </a>
           </div>
 
           <!-- <div class="brand">
-            <div class="icon"><img :src="require('@/assets/img/brandIcon/EggJS.png')" alt=""></div>
+            <div class="icon"><img :src="require('@/assets/icon/brandIcon/EggJS.png')" alt=""></div>
             <div class="name">EggJS</div>
           </div> -->
 

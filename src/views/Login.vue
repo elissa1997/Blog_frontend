@@ -106,7 +106,7 @@ export default {
 
   .card {
     min-height: 50vh;
-
+    box-sizing: border-box;
     .login{
       display: flex;
       justify-content: center;
@@ -152,9 +152,9 @@ export default {
   }
 
 .mobile {
-  padding: 10vh 0;
+  padding: 10vh 20px;
   .card {
-    width: calc(100vw - 20px);
+    width: 100%;
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0px 0px 20px #0000000a;

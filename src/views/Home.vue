@@ -1,6 +1,6 @@
 <template>
-  <div id="Home">
-    <div class="container" :class="{ mobile:  $store.state.style.screenWidth < 920 , desktop: $store.state.style.screenWidth >= 920}">
+  <div id="Home" :class="{ mobile:  $store.state.style.screenWidth < 920 , desktop: $store.state.style.screenWidth >= 920}">
+    <div class="container">
       <!-- <div class="card" >
         <div class="cover">
           <img :src="require('@/assets/img/defaultCover/covebg1.jpg')">
@@ -139,11 +139,13 @@ export default {
 <style lang="scss" scoped>
 #Home{
   background-color: $backGround-color;
+  overflow: auto;
 }
 
 .container {
+  
+  box-sizing: border-box;
   min-height: 50vh;
-  margin: 0px auto;
   .card {
     cursor: pointer;
     width: 100%;
@@ -152,6 +154,8 @@ export default {
     box-shadow: 0px 0px 20px #0000000a;
 
     .text{
+      box-sizing: border-box;
+
       .title {
         font-size: 18px;
         font-weight: bold;
@@ -219,72 +223,72 @@ export default {
 
 
 .mobile {
-  width: calc(100vw - 20px);
-  padding: 40px 0px;
-
-  .card {
-    // height: 400px;
-    display: flex;
-    flex-direction: column;
-    .cover{
-      width: 100%;
-      height: 180px;
-      img {
+  .container {
+    @include containerMobileWidth;
+    .card {
+      // height: 400px;
+      display: flex;
+      flex-direction: column;
+      .cover{
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        height: 180px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+      }
+
+      .text {
+        padding: 10px;
+        .summary {
+          line-height: 28px;
+        }
       }
     }
 
-    .text {
-      padding: 10px;
-      .summary {
-        line-height: 28px;
-      }
+    .card:not(:last-of-type){
+      margin-bottom: 40px;
     }
-  }
-
-  .card:not(:last-of-type){
-    margin-bottom: 40px;
   }
 }
 
 .desktop {
-  width: 900px;
-  padding: 50px 0px;
+  .container {
+    @include containerDesktopWidth;
+    .card{
+      height: 250px;
+      display: flex;
+      .cover{
+        width: 250px;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
 
-  .card{
-    height: 250px;
-    display: flex;
-    .cover{
-      width: 250px;
-      img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
+      .text {
+        width: calc(100% - 250px);
+        padding: 15px;
+
+        .summary {
+          line-height: 35px;
+          max-height: calc(250px - 30px - 21px - 51px);
+          overflow: hidden;
+        }
       }
     }
 
-    .text {
-      width: calc(100% - 250px);
-      padding: 15px;
-
-      .summary {
-        line-height: 35px;
-        max-height: calc(250px - 30px - 21px - 51px);
-        overflow: hidden;
-      }
+    .card:not(:last-of-type){
+      margin-bottom: 50px;
     }
-  }
-
-  .card:not(:last-of-type){
-    margin-bottom: 50px;
   }
 }
 </style>

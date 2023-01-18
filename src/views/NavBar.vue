@@ -1,6 +1,6 @@
 <template>
-  <div id="NavBar">
-    <div class="warp" :class="{ mobile:  $store.state.style.screenWidth < 1100 , desktop: $store.state.style.screenWidth >= 1100}">
+  <div id="NavBar" :class="{ mobile:  $store.state.style.screenWidth < 1100 , desktop: $store.state.style.screenWidth >= 1100}">
+    <div class="container">
       <div class="logo">
         <img :src="require('@/assets/icon/logo_text.svg')">
         <icon-application-menu v-if="$store.state.style.screenWidth < 1100" theme="filled" size="18" @click="mobile.navDisplay = !mobile.navDisplay"/>
@@ -10,9 +10,9 @@
       <div class="navWarp" :class="{openNav: mobile.navDisplay}">
         <a-menu :selectedKeys="current" :mode="($store.state.style.screenWidth < 1100)?'inline':'horizontal'" :overflowedIndicator="mobileIcon" style="width: 100%">
           <a-menu-item key="Home"><router-link to="/"> 主页 </router-link></a-menu-item>
-          <a-menu-item key="music"> 音乐 </a-menu-item>
-          <a-menu-item key="friend"> 友链 </a-menu-item>
-          <a-menu-item key="about" > 关于 </a-menu-item>
+          <!-- <a-menu-item key="music"> 音乐 </a-menu-item> -->
+          <a-menu-item key="Links"><router-link to="/links"> 友链 </router-link></a-menu-item>
+          <a-menu-item key="About" ><router-link to="/about"> 关于 </router-link></a-menu-item>
           <a-menu-item key="toolbox" > 工具箱 </a-menu-item>
           <a-menu-item key="Admin" ><router-link to="/admin">  后台 </router-link></a-menu-item>
         </a-menu>
@@ -68,72 +68,85 @@ export default {
 </script>
 <style lang="scss" scoped>
 #NavBar{
-  width: 100%;
   background-color: #fff;
   box-shadow: 0px 0px 15px #00000017;
   z-index: 10;
   position: relative;
 }
 
-.mobile {
-  min-height: $navBar-height;
-  position: relative;
-  .logo {
-    background-color: #fff;
-    z-index: 10;
-    position: relative;
-    height: $navBar-height;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 10px;
-    img {
-      height: 40px;
-    }
-  
-  }
-
-  .navWarp {
-    @include animation_cubic-bezier;
-    z-index: 9;
-    position: absolute;
-    width: 100%;
-    top: -100vh;
-    box-shadow: 0px 0px 15px #00000017;
-    border-top: 1px solid #b9b9b9;
-  }
-
-  .openNav {
-    top: 59px;
-  }
-}
-
-.desktop {
-  width: 1100px;
+.container {
+  @include NavContainerWidth;
   height: $navBar-height;
   background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: auto;
-  margin-right: auto;
-  .logo {
+  box-sizing: border-box;
 
-    img{
-      height: 40px;
-      padding: 0px 20px;
+}
+
+.mobile {
+  .container {
+    @include NavMobileWidth;
+    .logo {
+      width: 100%;
+      background-color: #fff;
+      position: relative;
+      height: $navBar-height;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+      img {
+        height: 40px;
+      }
+    
+    }
+  
+    .navWarp {
+      @include animation_cubic-bezier;
+      z-index: 9;
+      position: absolute;
+      width: 100%;
+      top: -100vh;
+      left: 0px;
+      box-shadow: 0px 0px 15px #00000017;
+      border-top: 1px solid #e6e6e6;
+    }
+  
+    .openNav {
+      top: $navBar-height;
     }
   }
+}
 
-  .navWarp{
-    max-width: 50%;
+.desktop {
+  .container {
+    @include NavDesktopWidth;
+    .logo {
 
-    ::v-deep .ant-menu-horizontal {
-      border-bottom: unset;
+      img{
+        height: 40px;
+        padding: 0px 20px;
+      }
     }
 
-    ::v-deep .ant-menu-horizontal > .ant-menu-item {
-      line-height: calc($navBar-height - 3px);
+    .navWarp{
+      max-width: 50%;
+
+      ::v-deep .ant-menu-horizontal {
+        border-bottom: unset;
+      }
+
+      ::v-deep .ant-menu-horizontal > .ant-menu-item {
+        line-height: calc($navBar-height - 3px);
+      }
+    }
+
+    ::v-deep .ant-menu-horizontal {
+      .ant-menu-submenu-horizontal:last-of-type {
+        display: none;
+      }
     }
   }
 }
