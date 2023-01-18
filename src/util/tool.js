@@ -136,3 +136,14 @@ export function filterObj(obj) {
     return newObj;
   }
 }
+
+// 通过email获取头像
+import md5 from 'md5';
+export function  avatarByemail(email) {
+  if (email) {
+    let hash = md5(email.replace(/^\s*|\s*$/g,"").toLowerCase());
+    return `https://cravatar.cn/avatar/${hash}?s=60`
+  }else{
+    return `https://cravatar.cn/avatar/404`
+  }
+}
