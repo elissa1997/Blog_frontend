@@ -3,22 +3,33 @@
     <div class="container">
       <div class="profile">
 
-        <div class="headWarp">
+        <div class="headImgWarp">
           <img class="headImg" :src="avatarByemail('524948583@qq.com')"/>
-          <div class="baseInfo">
-            <div class="name">Elissa_liu</div>
-            <div class="career">Front-end Development / Technical Art</div>
-            <div class="unit">Anhui Institute of Hydraulic Research</div>
-          </div>
         </div>
 
-        <div class="socialNetwork">
-          <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/email.png')"></a>
-          <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/weibo.png')"></a>
-          <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/github.png')"></a>
-          <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/twitter.png')"></a>
-          <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/facebook.png')"></a>
+
+        <div class="text">
+
+          <div class="baseInfo">
+            <div>Elissa_liu</div>
+            <div>Front-end Developer / Technical Art</div>
+            <div>Anhui Institute of Hydraulic Research</div>
+          </div>
+
+          <div class="socialNetwork">
+            <div class="text">Contact me</div>
+            <div class="linksWarp">
+              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/email.png')"></a>
+              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/weibo.png')"></a>
+              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/github.png')"></a>
+              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/twitter.png')"></a>
+              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/facebook.png')"></a>
+            </div>
+          </div>
+
         </div>
+
+
       </div>
 
       <div class="skill">
@@ -28,26 +39,34 @@
         <div class="itemWarp">
           <div class="item">
             <img class="icon" :src="require('@/assets/icon/brandIcon/vue.png')"/>
-            <div class="name">Vue.js</div>
-            <a-progress :percent="80" status="active" />
+            <div class="nameAndBar">
+              <div class="name">Vue.js</div>
+              <a-progress :percent="80" status="active" />
+            </div>
           </div>
 
           <div class="item">
             <img class="icon" :src="require('@/assets/icon/brandIcon/nodejs.png')"/>
-            <div class="name">Node.js</div>
-            <a-progress :percent="70" status="active" />
+            <div class="nameAndBar">              
+              <div class="name">Node.js</div>
+              <a-progress :percent="70" status="active" />
+            </div>
           </div>
 
           <div class="item">
-            <img class="icon" :src="require('@/assets/icon/brandIcon/figma.png')"/>
-            <div class="name">UI/UX</div>
-            <a-progress :percent="60" status="active" />
+            <img class="icon" :src="require('@/assets/icon/brandIcon/ui.png')"/>
+            <div class="nameAndBar">              
+              <div class="name">PhotoShop / Figma</div>
+              <a-progress :percent="40" status="active" />
+            </div>
           </div>
 
           <div class="item">
             <img class="icon" :src="require('@/assets/icon/brandIcon/UnrealEngine.png')"/>
-            <div class="name">Unreal</div>
-            <a-progress :percent="40" status="active" />
+            <div class="nameAndBar">              
+              <div class="name">Unreal Engine</div>
+              <a-progress :percent="60" status="active" />
+            </div>
           </div>
         </div>
       </div>
@@ -110,42 +129,69 @@ export default {
   padding: 10px;
 
   .profile {
-    .headWarp {
+    display: flex;
+
+
+    .headImgWarp {
+      background-image: url(~@/assets/img/bg-2.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
       display: flex;
+      justify-content: center;
+      align-items: center;
 
       .headImg {
         border-radius: 50%;
-        width: 90px;
-        height: 90px;
+        width: 120px;
+        height: 120px;
         border: 2px solid transparent;
         background-clip: padding-box, border-box;
         background-origin: padding-box, border-box;
         background-image: linear-gradient(to right, #222, #222), linear-gradient(270deg, #00c6ff, #0072ff);
-  
-        box-shadow: 0px 0px 6px 1px #1890ff;
-      }
 
+        box-shadow: 0px 0px 20px 1px #1890ff;
+      }
+    }
+
+    .text {
+      // color: #000;
       .baseInfo {
-        .name {
-          font-size: 20px;
+        .heavy {
           font-weight: 700;
         }
       }
 
-    }
-    .socialNetwork {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-      .linkItem {
-        text-align: center;
-        img {
-          width: 40px;
-          height: 40px;
+      
+      .socialNetwork {
+        display: flex;
+        flex-direction: column;
+        .text {
+          background-image: -moz-linear-gradient(90deg, #80adf9, #55f6d9);
+          background-image: -webkit-linear-gradient(90deg, #80adf9, #55f6d9);
+          background-image: linear-gradient(90deg, #80adf9, #55f6d9);
+          border-radius: 10px;
+          color: #fff;
+          padding: 0 10px;
+          margin-bottom: 20px;
+          width: fit-content;
+        }
+
+        .linksWarp {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .linkItem {
+            text-align: center;
+            img {
+              width: 30px;
+              height: 30px;
+            }
+          }
         }
       }
     }
+
   }
 
   .skill {
@@ -174,16 +220,19 @@ export default {
         border-radius: 5px;
         display: flex;
         align-items: center;
-        // position: relative;
-        .name {
-          font-size: 20px;
-          padding-left: 10px;
-        }
+        justify-content: space-between;
   
         .icon {
           // position: absolute;
-          width: 20px;
-          height: 20px;
+          width: 40px;
+          height: 40px;
+        }
+
+        .nameAndBar {
+          width: calc(100% - 40px - 20px);
+          .name {
+            font-size: 15px;
+          }
         }
       }
     }
@@ -214,6 +263,12 @@ export default {
         padding: 10px;
         background-color: #fff;
         border-radius: 5px;
+
+        .img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
 
@@ -226,30 +281,43 @@ export default {
     @include containerMobileWidth;
 
       .profile {
-        .headWarp {
-          flex-direction: column;
-          align-items: center;
+        flex-direction: column;
+        align-items: center;
+
+        .headImgWarp {
+          width: 100%;
+          height: 130px;
+        }
+
+        .text {
           .baseInfo {
-            margin-top: 20px;
+            margin-top: 40px;
             text-align: center;
+            font-size: 20px;
+            line-height: 50px;
+          }
+  
+          .socialNetwork {
+            margin-top: 40px;
+            align-items: center;
+            
+  
+            .text {
+              font-size: 20px;
+              line-height: 40px;
+            }
+  
+            .linksWarp {
+              width: 300px;
+            }
           }
         }
 
-        .socialNetwork {
-          .linkItem {
-            width: 55px;
-          }
-        }
       }
 
       .skill {
         .itemWarp {
           grid-template-columns: repeat(1, 1fr);
-          .item {
-            .name {
-              width: 140px;
-            }
-          }
         }
       }
 
@@ -261,30 +329,40 @@ export default {
     @include containerDesktopWidth;
 
       .profile {
-        .headWarp {
-          justify-content: center;
-          align-items: center;
-          .baseInfo {
-            margin-left: 20px;
-          }
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+
+        .headImgWarp {
+          width: 430px;
+          height: 350px;
         }
 
-        .socialNetwork {
-          .linkItem {
-            width: 75px;
+        .text {
+          .baseInfo {
+            font-size: 23px;
+            line-height: 50px;
+          }
+  
+          .socialNetwork {
+            margin-top: 40px;
+            justify-content: space-between;
+            .text {
+              font-size: 23px;
+              line-height: 50px;
+            }
+            .linksWarp {
+              // width: 200px;
+            }
           }
         }
+        
       }
 
       .skill {
 
         .itemWarp {
           grid-template-columns: repeat(2, 1fr);
-          .item {
-            .name {
-              width: 120px;
-            }
-          }
         }
       }
 
