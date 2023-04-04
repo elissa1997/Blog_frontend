@@ -9,11 +9,17 @@
 
 
         <div class="text">
-
+          
           <div class="baseInfo">
-            <div>Elissa_liu</div>
-            <div>Front-end Developer / Technical Art</div>
-            <div>Anhui Institute of Hydraulic Research</div>
+            <span class="name">Elissa_liu</span>
+            <div class="job">
+              <icon-handbag theme="outline" :strokeWidth="3"/>
+              <span>Front-end Developer / Technical Art</span>
+            </div>
+            <div class="unit">
+              <icon-city theme="outline" :strokeWidth="3"/>
+              <span>Anhui Institute of Hydraulic Research</span>
+            </div>
           </div>
 
           <div class="socialNetwork">
@@ -157,8 +163,13 @@ export default {
     .text {
       // color: #000;
       .baseInfo {
-        .heavy {
+        .name {
           font-weight: 700;
+          width: fit-content;
+          color: transparent;
+          background-image: linear-gradient(-90deg, #00c6ff, #0072ff);
+          -webkit-background-clip: text;
+          background-clip: text;
         }
       }
 
@@ -167,9 +178,7 @@ export default {
         display: flex;
         flex-direction: column;
         .text {
-          background-image: -moz-linear-gradient(90deg, #80adf9, #55f6d9);
-          background-image: -webkit-linear-gradient(90deg, #80adf9, #55f6d9);
-          background-image: linear-gradient(90deg, #80adf9, #55f6d9);
+          background-image: linear-gradient(-90deg, #00c6ff, #0072ff);
           border-radius: 10px;
           color: #fff;
           padding: 0 10px;
@@ -293,8 +302,21 @@ export default {
           .baseInfo {
             margin-top: 40px;
             text-align: center;
-            font-size: 20px;
             line-height: 50px;
+
+            .name {
+              font-size: 20px;
+            }
+
+            .job, .unit {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .i-icon {
+                margin-right: 10px;
+              }
+            }
           }
   
           .socialNetwork {
@@ -340,8 +362,22 @@ export default {
 
         .text {
           .baseInfo {
-            font-size: 23px;
+            // font-size: 23px;
             line-height: 50px;
+
+            .name {
+              font-size: 23px;
+            }
+
+            .job, .unit {
+              font-size: 16px;
+              display: flex;
+              align-items: center;
+
+              .i-icon {
+                margin-right: 10px;
+              }
+            }
           }
   
           .socialNetwork {
