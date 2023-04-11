@@ -40,7 +40,9 @@
 
       <div class="skill">
         
-        <div class="title">Skills</div>
+        <div class="title">
+          <span>Skills</span>
+        </div>
 
         <div class="itemWarp">
           <div class="item">
@@ -74,17 +76,95 @@
               <a-progress :percent="60" status="active" />
             </div>
           </div>
+
+          <div class="item">
+            <img class="icon" :src="require('@/assets/icon/brandIcon/ArcgisPro.png')"/>
+            <div class="nameAndBar">              
+              <div class="name">ArcGIS Pro</div>
+              <a-progress :percent="60" status="active" />
+            </div>
+          </div>
+
         </div>
       </div>
 
       <div class="project">
 
-        <div class="title">Projects</div>
+        <div class="title">
+          <span>Projects</span>
+        </div>
 
         <div class="itemWarp">
 
           <div class="item">
-            <img class="img" :src="require('@/assets/img/defaultCover/coverbg1.jpg')"/>
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/FloodWarningPlatform.jpg')"/>
+              <div class="name">安徽省基层防汛预警平台</div>
+            </div>
+
+            <div class="detail">
+              <p>参与平台早期UI框架搭建，公共地图部分建设</p>
+              <p>编写部分业务模块，优化实时视频组件延迟问题</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/HuaiRiveTransferLine.jpg')"/>
+              <div class="name">安徽省节水调水平台输水线路</div>
+            </div>
+
+            <div class="detail">
+              <p>独立完成输水线路业务功能前端开发</p>
+              <p>实现基于ArcGIS JS多图层叠加、管理、查询功能</p>
+              <p>实现数据图标、报表查询、前端导出等功能</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/wsAndswApp.jpg')"/>
+              <div class="name">安徽省节水&水资源APP</div>
+            </div>
+
+            <div class="detail">
+              <p>独立完成APP内部H5前端开发</p>
+              <p>实现节水、水资源双平台业务数据查询功能</p>
+              <p>打通内网IP、公网域名https访问，同时上线微信小程序版</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/Mike21.jpg')"/>
+              <div class="name">基于MIKE Zero® 21 水动力模拟</div>
+            </div>
+
+            <div class="detail">
+              安徽省基层防汛预警平台
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/HEC-RAS.jpg')"/>
+              <div class="name">基于 HEC-RAS 水文计算</div>
+            </div>
+
+            <div class="detail">
+              安徽省基层防汛预警平台
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/UnReal.jpg')"/>
+              <div class="name">基于虚幻引擎响洪殿水库可视化场景</div>
+            </div>
+
+            <div class="detail">
+              安徽省基层防汛预警平台
+            </div>
           </div>
 
         </div>
@@ -208,12 +288,14 @@ export default {
 
     .title {
       text-align: center;
-      font-size: 20px;
-      font-weight: 500;
-      color: transparent;
-      background-image: linear-gradient(0deg, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      background-clip: text;
+      span {
+        font-size: 20px;
+        font-weight: 500;
+        color: transparent;
+        background-image: linear-gradient(-90deg, #00c6ff, #0072ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
     }
 
     .itemWarp {
@@ -253,12 +335,14 @@ export default {
 
     .title {
       text-align: center;
-      font-size: 20px;
-      font-weight: 500;
-      color: transparent;
-      background-image: linear-gradient(0deg, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      background-clip: text;
+      span {
+        font-size: 20px;
+        font-weight: 500;
+        color: transparent;
+        background-image: linear-gradient(-90deg, #00c6ff, #0072ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
     }
 
     .itemWarp {
@@ -269,15 +353,42 @@ export default {
       box-sizing: border-box;
   
       .item {
-        padding: 10px;
+        // padding: 10px;
         background-color: #fff;
         border-radius: 5px;
 
-        .img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
+        .imgWarp {
+          position: relative;
+          .img {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+            object-position: center center;
+          }
+          .name {
+            position: absolute;
+            bottom: 0px;
+            padding: 20px 10px 10px;
+
+            width: 100%;
+            // height: 30px;
+
+            color: #fff;
+            font-size: 16px;
+            background-image: linear-gradient(0deg, #00000099, #ffffff00);
+          }
         }
+
+        .detail {
+          box-sizing: border-box;
+          padding: 10px;
+          p {
+            margin-bottom: 0px !important;
+          }
+        }
+
       }
     }
 
@@ -343,6 +454,10 @@ export default {
         }
       }
 
+      .itemWarp {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
   }
 }
 
@@ -396,6 +511,13 @@ export default {
       }
 
       .skill {
+
+        .itemWarp {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .project {
 
         .itemWarp {
           grid-template-columns: repeat(2, 1fr);
