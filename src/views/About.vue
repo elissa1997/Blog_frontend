@@ -99,7 +99,7 @@
           <div class="item">
             <div class="imgWarp">
               <img class="img" :src="require('@/assets/img/projects/FloodWarningPlatform.jpg')"/>
-              <div class="name">安徽省基层防汛预警平台</div>
+              <div class="name">Anhui Province flood control early warning platform</div>
             </div>
 
             <div class="detail">
@@ -111,7 +111,7 @@
           <div class="item">
             <div class="imgWarp">
               <img class="img" :src="require('@/assets/img/projects/HuaiRiveTransferLine.jpg')"/>
-              <div class="name">安徽省节水调水平台输水线路</div>
+              <div class="name">Anhui Province water transfer platform water transmission lines</div>
             </div>
 
             <div class="detail">
@@ -124,7 +124,7 @@
           <div class="item">
             <div class="imgWarp">
               <img class="img" :src="require('@/assets/img/projects/wsAndswApp.jpg')"/>
-              <div class="name">安徽省节水&水资源APP</div>
+              <div class="name">Anhui Province Water Saving Platform & Water Resources Platform APP</div>
             </div>
 
             <div class="detail">
@@ -137,7 +137,7 @@
           <div class="item">
             <div class="imgWarp">
               <img class="img" :src="require('@/assets/img/projects/Mike21.jpg')"/>
-              <div class="name">基于MIKE Zero® 21 水动力模拟</div>
+              <div class="name">Based on MIKE Zero® 21 hydrodynamic simulation</div>
             </div>
 
             <div class="detail">
@@ -148,7 +148,7 @@
           <div class="item">
             <div class="imgWarp">
               <img class="img" :src="require('@/assets/img/projects/HEC-RAS.jpg')"/>
-              <div class="name">基于 HEC-RAS 水文计算</div>
+              <div class="name">Based on HEC-RAS hydrological calculations</div>
             </div>
 
             <div class="detail">
@@ -159,7 +159,7 @@
           <div class="item">
             <div class="imgWarp">
               <img class="img" :src="require('@/assets/img/projects/UnReal.jpg')"/>
-              <div class="name">基于虚幻引擎响洪殿水库可视化场景</div>
+              <div class="name">Based on Unreal engine visualization scene of Hongdeng Reservoir</div>
             </div>
 
             <div class="detail">
