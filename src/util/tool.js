@@ -108,8 +108,15 @@ export function nestComment(list) {
  * @param {String} key值
  * 
  */
-export function translate(dict, obj, key) {
-  return dict[obj].find(item => item.key === key)
+import { dict } from "@/network/static.js";
+
+export async function translate(filename, obj, key) {
+  let dictFile = undefined;
+  await dict(filename).then(res => {
+    dictFile = res;
+  })
+  console.log("字典翻译", dictFile, obj, key);
+  return dictFile[obj].find(item => item.key === key)
 }
 
 // 重置对象

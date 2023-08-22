@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import style from './modules/style.js';
+import dict from './modules/dict.js';
 
 export default new Vuex.Store({
   namespaced: true,
@@ -12,6 +13,7 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     style,
+    dict
   }
 
 })

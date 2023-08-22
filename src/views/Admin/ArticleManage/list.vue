@@ -7,14 +7,14 @@
           <a-input v-model="search.title" placeholder="文章标题">
           </a-input>
         </a-form-item>
-        <a-form-item v-if="dict">
+        <a-form-item v-if="$store.state.dict.article">
           <a-select style="width: 200px" placeholder="文章分类" v-model="search.category">
-            <a-select-option :value="option.key" v-for="option in dict.category" :key="option.key">{{option.value}}</a-select-option>
+            <a-select-option :value="option.key" v-for="option in $store.getters['dict/getDictObj']('article', 'category')" :key="option.key">{{option.value}}</a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item v-if="dict">
+        <a-form-item v-if="$store.state.dict.article">
           <a-select style="width: 200px" placeholder="文章状态" v-model="search.status">
-            <a-select-option :value="option.key" v-for="option in dict.status" :key="option.key">{{option.value}}</a-select-option>
+            <a-select-option :value="option.key" v-for="option in $store.getters['dict/getDictObj']('article', 'status')" :key="option.key">{{option.value}}</a-select-option>
           </a-select>
         </a-form-item>
         <a-form-item>
@@ -40,8 +40,8 @@
       >
         <span slot="comments" slot-scope="comments">{{comments.length}}</span>
         <span slot="created_at" slot-scope="created_at">{{$dayjs(created_at).format('YYYY-MM-DD HH:mm:ss')}}</span>
-        <span v-if="dict" slot="category" slot-scope="category">{{translate(dict, 'category', category).value}}</span>
-        <span v-if="dict" slot="status" slot-scope="status">{{translate(dict, 'status', status).value}}</span>
+        <span v-if="$store.state.dict.article" slot="category" slot-scope="category">{{$store.getters['dict/transDict']('article', 'category', category)}}</span>
+        <span v-if="$store.state.dict.article" slot="status" slot-scope="status">{{$store.getters['dict/transDict']('article', 'status', status)}}</span>
         <span slot="action" slot-scope="text, record">
           <a-button type="link" @click="edit(record)"><icon-writing-fluently theme="outline" :strokeWidth="3"/> 编辑 </a-button>
           <a-divider type="vertical" />
@@ -69,8 +69,7 @@
 import Vue from 'vue';
 import { Button, Table, Pagination, Form, Input, Select, Divider, Modal } from 'ant-design-vue';
 import { list, del } from "@/network/article.js";
-import { dict } from "@/network/static.js";
-import { translate, resetObj, filterObj } from "@/util/tool.js";
+import { resetObj, filterObj } from "@/util/tool.js";
 Modal.install(Vue);
 
 export default {
@@ -117,7 +116,6 @@ export default {
     }
   },
   methods: {
-    translate,
     // 获取文章列表
     getArticleList() {
       list(this.articleList_params).then(res => {
@@ -125,13 +123,6 @@ export default {
           this.page.total = res.data.count;
           this.articleList.data = res.data.rows;
         }
-      })
-    },
-
-    // 获取字典
-    getDict() {
-      dict("article").then(res => {
-        this.dict = res;
       })
     },
 
@@ -229,8 +220,13 @@ export default {
       });
     }
   },
-  mounted() {
-    this.getDict();
+  async mounted() {
+    await this.$store.dispatch('dict/cacheDict', {
+      fileName: 'article',
+      mutationsName: 'SET_ARTICLE'
+    });
+
+    console.log(this.$store.getters['dict/transDict']('article', 'category', 1));
     this.getArticleList();
   },
   computed: {
