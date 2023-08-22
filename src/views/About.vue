@@ -103,8 +103,10 @@
             </div>
 
             <div class="detail">
-              <p>参与平台早期UI框架搭建，公共地图部分建设</p>
-              <p>编写部分业务模块，优化实时视频组件延迟问题</p>
+              <ul>
+                <li>Participated in the early development of the platform's UI framework and was involved in the construction of the public map.</li>
+                <li>Developed some business modules and optimized the real-time video component delay issue.</li>
+              </ul>
             </div>
           </div>
 
@@ -115,33 +117,11 @@
             </div>
 
             <div class="detail">
-              <p>独立完成输水线路业务功能前端开发</p>
-              <p>实现基于ArcGIS JS多图层叠加、管理、查询功能</p>
-              <p>实现数据图标、报表查询、前端导出等功能</p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="imgWarp">
-              <img class="img" :src="require('@/assets/img/projects/wsAndswApp.jpg')"/>
-              <div class="name">Anhui Province Water Saving Platform & Water Resources Platform APP</div>
-            </div>
-
-            <div class="detail">
-              <p>独立完成APP内部H5前端开发</p>
-              <p>实现节水、水资源双平台业务数据查询功能</p>
-              <p>打通内网IP、公网域名https访问，同时上线微信小程序版</p>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="imgWarp">
-              <img class="img" :src="require('@/assets/img/projects/Mike21.jpg')"/>
-              <div class="name">Based on MIKE Zero® 21 hydrodynamic simulation</div>
-            </div>
-
-            <div class="detail">
-              安徽省基层防汛预警平台
+              <ul>
+                <li>Independently completed the frontend development of the water pipeline business function.</li>
+                <li>Implemented multi-layer overlay, management, and query functions based on ArcGIS JS.</li>
+                <li>Implemented data charting, report querying, frontend exporting, and other functions.</li>
+              </ul>
             </div>
           </div>
 
@@ -152,18 +132,57 @@
             </div>
 
             <div class="detail">
-              安徽省基层防汛预警平台
+              <ul>
+                <li>Hec-ras is used to simulate the dynamic characteristics of mountain flood independently</li>
+                <li>The results of calculation under different conditions such as water level and discharge relation, specific drop and open boundary are tried</li>
+                <li>Use nodejs to batch clean the output data and output to ArcGIS Pro</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/Mike21.jpg')"/>
+              <div class="name">Based on MIKE Zero® 21 hydrodynamic simulation</div>
+            </div>
+
+            <div class="detail">
+              <ul>
+                <li>Independently completed DEM data extraction and pre-processing for oblique photography in a certain region.</li>
+                <li>Simulated and calculated the mountain flood situation in a two-dimensional hydraulic model using the water level-flow relationship curve.</li>
+                <li>Extracted the calculation results to an SHP file and displayed them using ArcGIS for JS.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="imgWarp">
+              <img class="img" :src="require('@/assets/img/projects/wsAndswApp.jpg')"/>
+              <div class="name">Anhui Province Water Saving Platform & Water Resources Platform APP</div>
+            </div>
+
+            <div class="detail">
+              <ul>
+                <li>Independently completed the frontend development of the H5 pages within the APP.</li>
+                <li>Implemented business data query functions for both water conservation and water resource platforms.</li>
+                <li>Enabled access to internal network IP and public domain name via HTTPS, and launched a WeChat mini-program version simultaneously.</li>
+              </ul>
             </div>
           </div>
 
           <div class="item">
             <div class="imgWarp">
               <img class="img" :src="require('@/assets/img/projects/UnReal.jpg')"/>
-              <div class="name">Based on Unreal engine visualization scene of Hongdeng Reservoir</div>
+              <div class="name">Based on Unreal engine visualization scene of XiangHongDian Reservoir</div>
             </div>
 
             <div class="detail">
-              安徽省基层防汛预警平台
+              <ul>
+                <li>Independently completed surface reduction optimization, block merging, and manually modeled the sluice gate of the Xianghongdian Reservoir using 3Dmax's oblique photography model.</li>
+                <li>Integrated oblique photography data, DEM elevation data, and remote sensing image data to build a virtual scene.</li>
+                <li>Collaborated with the designer to complete the UI interface design and functionality interaction.</li>
+                <li>Used the Fluid Flux plug-in to achieve physical water flow effects and used the Niagara system to create water jet particle effects.</li>
+              </ul>
             </div>
           </div>
 
