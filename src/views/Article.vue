@@ -9,9 +9,9 @@
             <div class="title">{{articleDetail.title}}</div>
             <div class="meta">
 
-              <span class="metaItem author">
+              <span class="metaItem author" v-if="$store.state.user.loginUserInfo">
                 <icon-user theme="outline" :strokeWidth="3"/>
-                {{articleDetail.author}}
+                {{$store.getters['user/getLoginUserName'](articleDetail.author)}}
               </span>
               <span class="metaItem time">
                 <icon-calendar theme="outline" :strokeWidth="3"/>
@@ -19,7 +19,7 @@
               </span>
               <span class="metaItem category">
                 <icon-application-two theme="outline" :strokeWidth="3"/>
-                {{articleDetail.category}}
+                {{$store.getters['dict/transDict']('article', 'category', articleDetail.category)}}
               </span>
               <span class="metaItem comment">
                 <icon-comment theme="outline" :strokeWidth="3"/>
@@ -84,7 +84,11 @@ export default {
       })
     },
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch('dict/cacheDict', {
+      fileName: 'article',
+      mutationsName: 'SET_ARTICLE'
+    });
     this.getArticleDetail();
   },
   computed: {

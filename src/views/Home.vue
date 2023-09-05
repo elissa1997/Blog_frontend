@@ -29,7 +29,7 @@
             </span>
             <span class="metaItem category">
               <icon-application-two theme="outline" size="18" :strokeWidth="3"/>
-              {{item.category}}
+              {{$store.getters['dict/transDict']('article', 'category', item.category)}}
             </span>
             <span class="metaItem comment">
               <icon-comment theme="outline" size="18" :strokeWidth="3"/>
@@ -122,7 +122,11 @@ export default {
       })
     }
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch('dict/cacheDict', {
+      fileName: 'article',
+      mutationsName: 'SET_ARTICLE'
+    });
     this.getArticleList();
   },
   computed: {

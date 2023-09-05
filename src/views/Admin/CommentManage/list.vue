@@ -7,9 +7,9 @@
           <a-input v-model="search.text" placeholder="评论内容">
           </a-input>
         </a-form-item>
-        <a-form-item v-if="dict">
+        <a-form-item v-if="$store.state.dict.article">
           <a-select style="width: 200px" placeholder="评论状态" v-model="search.status">
-            <a-select-option :value="option.key" v-for="option in dict.status" :key="option.key">{{option.value}}</a-select-option>
+            <a-select-option :value="option.key" v-for="option in $store.getters['dict/getDictObj']('article', 'status')" :key="option.key">{{option.value}}</a-select-option>
           </a-select>
         </a-form-item>
         <a-form-item>
@@ -37,7 +37,7 @@
         <span slot="agent" slot-scope="agent">{{parseUa(agent).os.name}} {{parseUa(agent).os.version}} {{parseUa(agent).browser.name}} {{parseUa(agent).browser.major}}</span>
         <span slot="url" slot-scope="url"><a :href="url" target="_blank" v-if="url"><icon-link-two theme="outline" size="18" :strokeWidth="3"/></a></span>
         <span slot="createdAt" slot-scope="createdAt">{{$dayjs(createdAt).format('YYYY-MM-DD HH:mm')}}</span>
-        <span v-if="dict" slot="status" slot-scope="status">{{translate(dict, 'status', status).value}}</span>
+        <span v-if="$store.state.dict.article" slot="status" slot-scope="status">{{$store.getters['dict/transDict']('article', 'status', status)}}</span>
         <span slot="action" slot-scope="text, record">
           <a-button type="link" @click="changeStatus(record)">
             <template v-if="record.status == 1"><icon-preview-close-one theme="outline" :strokeWidth="3"/> 隐藏</template>
@@ -69,8 +69,7 @@ import Vue from 'vue';
 import uaParser from 'ua-parser-js';
 import { Button, Table, Pagination, Form, Input, Select, Divider, Modal } from 'ant-design-vue';
 import { list, update, del } from "@/network/comment.js";
-import { dict } from "@/network/static.js";
-import { translate, resetObj, filterObj } from "@/util/tool.js";
+import { resetObj, filterObj } from "@/util/tool.js";
 Modal.install(Vue);
 
 export default {
@@ -114,12 +113,11 @@ export default {
       },
       search: {
         text: undefined,
-      },
-      dict: undefined
+      }
     }
   },
   methods: {
-    translate,
+    
     // 获取评论列表
     getCommentList() {
       list(this.commentList_params).then(res => {
@@ -127,13 +125,6 @@ export default {
           this.page.total = res.data.count;
           this.commentList.data = res.data.rows;
         }
-      })
-    },
-
-    // 获取字典
-    getDict() {
-      dict("article").then(res => {
-        this.dict = res;
       })
     },
 
@@ -244,8 +235,11 @@ export default {
       });
     }
   },
-  mounted() {
-    this.getDict();
+  async mounted() {
+    await this.$store.dispatch('dict/cacheDict', {
+      fileName: 'article',
+      mutationsName: 'SET_ARTICLE'
+    });
     this.getCommentList();
   },
   computed: {
