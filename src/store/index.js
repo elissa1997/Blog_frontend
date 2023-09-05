@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 import style from './modules/style.js';
 import dict from './modules/dict.js';
+import user from './modules/user.js';
 
 export default new Vuex.Store({
   namespaced: true,
@@ -13,7 +14,8 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     style,
-    dict
+    dict,
+    user
   }
 
 })

@@ -1,14 +1,17 @@
 // 鉴权相关
 import Cookies from 'js-cookie';
 import dayjs from "dayjs";
-import Router from "@/router/index.js"; 
+import Router from "@/router/index.js";
+import Store from "@/store/index.js";
 import { message } from 'ant-design-vue';
 
 // 登录成功后保存token并跳转
 export function loginSuccess(token) {
   let time = dayjs().add(12, 'h').toDate();
   Cookies.set('token', token, { expires: time });
-  Router.push('/admin')
+  Store.dispatch('user/getLoginUserInfo').then(() => {
+    Router.push('/admin')
+  });
 }
 
 // 通过路由检查是否存在token
