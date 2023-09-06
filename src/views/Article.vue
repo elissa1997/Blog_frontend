@@ -9,10 +9,10 @@
             <div class="title">{{articleDetail.title}}</div>
             <div class="meta">
 
-              <span class="metaItem author" v-if="$store.state.user.loginUserInfo">
+              <!-- <span class="metaItem author" v-if="$store.state.user.loginUserInfo">
                 <icon-user theme="outline" :strokeWidth="3"/>
                 {{$store.getters['user/getLoginUserName'](articleDetail.author)}}
-              </span>
+              </span> -->
               <span class="metaItem time">
                 <icon-calendar theme="outline" :strokeWidth="3"/>
                 {{$dayjs(articleDetail.createdAt).format('YYYY-MM-DD HH:mm')}}

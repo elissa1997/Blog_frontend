@@ -1,20 +1,14 @@
 <template>
   <div id="markdown">
-    <mavon-editor
-      v-model="renderHtml"
-      :defaultOpen = "'preview'"
-      :toolbarsFlag = "false"
-      :editable = "false"
-      :subfield = "false"
-      :boxShadow = "false"
-      codeStyle="vs2015"
-      previewBackground	="#fffff000"
-    >
-    </mavon-editor>
+    <v-md-preview :text="renderHtml"/>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
 
 export default {
   name: "markdown",
@@ -22,7 +16,6 @@ export default {
     content: String
   },
   components: {
-
   },
   data() {
     return {
@@ -34,6 +27,14 @@ export default {
   },
   mounted() {
     this.renderHtml = this.content;
+  },
+
+  created() {
+    VMdPreview.use(vuepressTheme, {
+      Prism,
+    });
+    VMdPreview.use(createKatexPlugin());
+    Vue.use(VMdPreview);
   },
 
   watch: {}

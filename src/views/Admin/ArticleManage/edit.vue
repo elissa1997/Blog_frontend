@@ -14,23 +14,7 @@
             </a-form-item>
 
             <a-form-item style="margin-bottom: 0px">
-              <!-- <div class="preview" v-html="compiledMarkdown" id="markdown" v-if="preview"></div>
-
-              <a-textarea
-                v-else
-                v-model="articleDetail.content"
-                placeholder="请输入文章正文"
-                :auto-size="{ minRows: 32, maxRows: 32 }"
-              /> -->
-              <mavon-editor
-                class="edit"
-                v-model="articleDetail.content"
-                
-                :boxShadow = "false"
-                codeStyle="vs2015"
-                previewBackground	="#fffff000"
-              >
-              </mavon-editor>
+              <v-md-editor v-model="articleDetail.content" class="edit"></v-md-editor>
             </a-form-item>
           </a-col>
 
@@ -75,6 +59,9 @@
 
 <script>
 import Vue from 'vue'
+import VueMarkdownEditor from '@kangc/v-md-editor';
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';
 import load from "@/components/public/loading.vue";
 import { Button, Modal, Form, Input, Row, Col, Select, Switch } from 'ant-design-vue';
 import { detail, add, update } from "@/network/article.js";
@@ -194,6 +181,13 @@ export default {
     this.getRouteQuery();
     this.getDict();
     this.getDetail();
+  },
+  created() {
+    VueMarkdownEditor.use(vuepressTheme, {
+      Prism,
+    });
+    VueMarkdownEditor.use(createKatexPlugin());
+    Vue.use(VueMarkdownEditor);
   },
   computed: {
     articleDetail_params: function() {
