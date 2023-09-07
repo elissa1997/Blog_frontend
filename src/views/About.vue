@@ -46,7 +46,7 @@
 
         <div class="itemWarp">
           <div class="item">
-            <img class="icon" :src="require('@/assets/icon/brandIcon/vue.png')"/>
+            <img class="icon" :src="require('@/assets/icon/brandIcon/Vue.png')"/>
             <div class="nameAndBar">
               <div class="name">Vue.js</div>
               <a-progress :percent="80" status="active" />
