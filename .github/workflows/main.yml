@@ -10,6 +10,9 @@ jobs:
   build:
     # 运行环境
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.19.0] #选择你需要的nodejs版本
     # 步骤
     steps:
     # 使用别人的action
