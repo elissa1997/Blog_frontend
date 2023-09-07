@@ -17,6 +17,11 @@ jobs:
     steps:
     # 使用别人的action
     - uses: actions/checkout@v2
+    - name: 使用 Node.js ${{ matrix.node-version }}开始搞事情
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
     # 步骤名称
     - name: npm install
       # 步骤执行指令
