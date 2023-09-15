@@ -3,11 +3,7 @@
     <div class="container">
       <!-- <toy/> -->
       <div class="block">
-        <toy/>
-        <!-- <div class="title">
-          <icon-cube-three theme="outline"  :strokeWidth="3"/>
-          <span>技术支持</span>
-        </div> -->
+        <anpu/>
       </div>
       <div class="block">
         <div class="title">
@@ -51,20 +47,20 @@
 
         <div class="content">
           <div class="link">
-            <a href=mailto:524948583@qq.com>
-              <div class="icon"><img :src="require('@/assets/icon/brandIcon/email.png')" alt=""></div>
-              <div class="name">524948583@qq.com</div>
+            <a href="https://freessl.cn/" target="_blank">
+              <div class="icon"><img :src="require('@/assets/icon/footLink/freessl.png')" alt=""></div>
+              <div class="name">FreeSSL</div>
             </a>
           </div>
 
           <div class="link">
-            <a href="https://weibo.com/u/7647615199" target="_blank">
-              <div class="icon"><img :src="require('@/assets/icon/brandIcon/weibo.png')" alt=""></div>
-              <div class="name">微博@ElissaLiu_CN</div>
+            <a href="https://pan.makedream.site/" target="_blank">
+              <div class="icon"><img :src="require('@/assets/icon/footLink/alist.png')" alt=""></div>
+              <div class="name">AList存储</div>
             </a>
           </div>
 
-          <div class="link">
+          <!-- <div class="link">
             <a href="https://github.com/elissa1997" target="_blank">
               <div class="icon"><img :src="require('@/assets/icon/brandIcon/github.png')" alt=""></div>
               <div class="name">GitHub</div>
@@ -76,7 +72,7 @@
               <div class="icon"><img :src="require('@/assets/icon/brandIcon/facebook.png')" alt=""></div>
               <div class="name">Facebook@Elissa Liu</div>
             </a>
-          </div>
+          </div> -->
 
           <!-- <div class="brand">
             <div class="icon"><img :src="require('@/assets/icon/brandIcon/EggJS.png')" alt=""></div>
@@ -92,12 +88,13 @@
 </template>
 
 <script>
-import toy from "@/components/toy.vue";
+// import toy from "@/components/toy.vue";
+import anpu from "@/components/anpu.vue";
 export default {
   name: "InfoFooter",
   props: {},
   components: {
-    toy
+    anpu
   },
   data() {
     return {
@@ -124,7 +121,6 @@ export default {
 
   .block{
     padding: 10px;
-
     .title {
       ::v-deep .i-icon {
         margin-right: 10px;
