@@ -40,7 +40,7 @@
         <!-- <markdown-it-vue class="content" :content="articleDetail.content" /> -->
 
         <div class="commentsWarp">
-          <comments ref="comments" :comments="articleDetail.comments" :id="$route.query.id" @addCommentSuccess="getArticleDetail"/>
+          <comments ref="comments" :comments="articleDetail.comments" :id="Number($route.query.id)" @addCommentSuccess="getArticleDetail"/>
         </div>
 
 

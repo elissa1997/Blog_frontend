@@ -23,9 +23,9 @@
               <a-switch v-model="preview" />
             </a-form-item> -->
 
-            <a-form-item label="文章作者"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
+            <!-- <a-form-item label="文章作者"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
               <a-input v-model="articleDetail.cover" placeholder="请输入文章作者" />
-            </a-form-item>
+            </a-form-item> -->
 
             <a-form-item label="封面连接"  :label-col="layout.labelCol" :wrapper-col="layout.wrapperCol">
               <a-input v-model="articleDetail.cover" placeholder="请输入封面URL" />
