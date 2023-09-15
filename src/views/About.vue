@@ -25,11 +25,21 @@
           <div class="socialNetwork">
             <div class="text">Contact me</div>
             <div class="linksWarp">
-              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/email.png')"></a>
-              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/weibo.png')"></a>
-              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/github.png')"></a>
-              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/twitter.png')"></a>
-              <a class="linkItem"><img :src="require('@/assets/icon/brandIcon/facebook.png')"></a>
+              <a class="linkItem" href=mailto:524948583@qq.com>
+                <img :src="require('@/assets/icon/brandIcon/email.png')">
+              </a>
+              <a class="linkItem" href="https://weibo.com/u/7647615199" target="_blank">
+                <img :src="require('@/assets/icon/brandIcon/weibo.png')">
+              </a>
+              <a class="linkItem" href="https://github.com/elissa1997" target="_blank">
+                <img :src="require('@/assets/icon/brandIcon/github.png')">
+              </a>
+              <!-- <a class="linkItem">
+                <img :src="require('@/assets/icon/brandIcon/twitter.png')">
+              </a> -->
+              <a class="linkItem" href="https://www.facebook.com/profile.php?id=100004061595831" target="_blank">
+                <img :src="require('@/assets/icon/brandIcon/facebook.png')">
+              </a>
             </div>
           </div>
 
