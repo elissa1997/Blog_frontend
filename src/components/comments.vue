@@ -10,7 +10,7 @@
 
 
       <div class="content">
-        <a-textarea v-model="newComment.text" placeholder="输入评论内容，华为云提供内容审核服务" :rows="7" />
+        <a-textarea v-model="newComment.text" placeholder="输入评论内容，评论自动审核" :rows="7" />
       </div>
 
       <div class="actions">
@@ -65,7 +65,7 @@ export default {
       default: undefined
     },
     id: {
-      type: String,
+      type: Number,
       default: undefined
     }
   },
