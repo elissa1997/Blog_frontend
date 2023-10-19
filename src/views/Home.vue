@@ -124,7 +124,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('dict/cacheDict', {
-      fileName: 'article',
+      fileName: 'dict_article',
       mutationsName: 'SET_ARTICLE'
     });
     this.getArticleList();

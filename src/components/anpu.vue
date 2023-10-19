@@ -7,8 +7,8 @@
       :music="{
         title: '关于我爱你',
         artist: '张悬',
-        src: 'https://cdn.makedream.site/audio/%E5%85%B3%E4%BA%8E%E6%88%91%E7%88%B1%E4%BD%A0-%E5%BC%A0%E6%82%AC.mp3',
-        pic: 'https://cdn.makedream.site/audio/%E5%85%B3%E4%BA%8E%E6%88%91%E7%88%B1%E4%BD%A0-%E5%BC%A0%E6%82%AC.jpg'
+        src: 'https://cdn.makedream.site/blog/audio/%E5%85%B3%E4%BA%8E%E6%88%91%E7%88%B1%E4%BD%A0-%E5%BC%A0%E6%82%AC.mp3',
+        pic: 'https://cdn.makedream.site/blog/audio/%E5%85%B3%E4%BA%8E%E6%88%91%E7%88%B1%E4%BD%A0-%E5%BC%A0%E6%82%AC.jpg'
       }"
     />
   </div>
