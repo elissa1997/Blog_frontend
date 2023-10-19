@@ -19,7 +19,7 @@ module.exports = {
         prependData: `@import "~@/assets/style/public.sass";`
       },
       scss: {
-        prependData: `@import "~@/assets/style/public.scss";`
+        additionalData: `@import "~@/assets/style/public.scss";`
       },
       // @/ 是 src/ 的别名
       // 所以这里假设你有 `src/variables.sass` 这个文件

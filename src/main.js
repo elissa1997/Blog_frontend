@@ -3,13 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import '@/assets/style/public.scss';
+// import '@/assets/style/public.scss';
 import {install} from '@icon-park/vue/es/all';
 import dayjs from "dayjs";
 import { message } from 'ant-design-vue';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
-import Prism from 'prismjs';
+// import Prism from 'prismjs';
 
 
 Vue.config.productionTip = false;
